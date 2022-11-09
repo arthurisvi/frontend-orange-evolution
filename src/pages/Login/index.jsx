@@ -1,10 +1,11 @@
 import React from "react";
+import PrimarySearchAppBar from '../../shared/components/Header'
 
 const Login = () => {
 
   return (
     <div>
-      <h1>Oi</h1>
+      <PrimarySearchAppBar/>
     </div>
   );
 };
