@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 
-const CardTrail = () => {
+const CardTrail = (props) => {
   return (
     <div>
       <Box
@@ -9,10 +9,11 @@ const CardTrail = () => {
           width: 270,
           height: 340,
           border: "1px solid black",
+          marginBottom: "15px"
         }}
       />
-      <strong>Desenvolvimento Full Stack</strong>
-      <p>Trilha</p>
+      <strong>{props.title}</strong>
+      <p>{props.description}</p>
     </div>
   );
 };
