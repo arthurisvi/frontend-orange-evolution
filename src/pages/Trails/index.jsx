@@ -1,16 +1,27 @@
 import React from "react";
-import CardHeader from "@mui/material/CardHeader";
-import { ContainerCards } from "./style";
+import { ContainerCards, Title, Container} from "./style";
 import CardTrail from "../../shared/components/CardTrail";
+import PrimarySearchAppBar from "../../shared/components/Header";
 
-const trails = [{ title: "Desenvolvimento FullStack" }, { title: "Design UI/UX" }, { title: "QA (Quality Assurance)" }];
+const trails = [
+  { id: 1, title: "Desenvolvimento FullStack" },
+  { id: 2, title: "Design UI/UX" },
+  { id: 3, title: "QA (Quality Assurance)" },
+];
 
 const Trails = () => {
   return (
-    <ContainerCards>
-      {trails.map((trail) => (
-        <CardTrail title={trail.title} description = "Trilha"/>))}
-    </ContainerCards>
+    <body>
+      <PrimarySearchAppBar />
+      <Container>
+        <Title>Selecione uma trilha</Title>
+        <ContainerCards>
+          {trails.map((trail) => (
+            <CardTrail title={trail.title} description="Trilha" id={trail.id}/>
+          ))}
+        </ContainerCards>
+      </Container>
+    </body>
   );
 };
 
