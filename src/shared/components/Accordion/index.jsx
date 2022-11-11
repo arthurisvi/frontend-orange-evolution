@@ -1,9 +1,10 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CardContent from "../CardContent";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -15,7 +16,34 @@ const Box = styled.div`
   }
 `;
 
-export default function SimpleAccordion() {
+// const contentsTest = [
+//   {
+//     title:
+//       "UX/UI Guia definitivo de como migrar para UX Design: 5 passos para virar um UX",
+//     duration: "00:06:00",
+//     type: "Artigo",
+//   },
+//   {
+//     title:
+//       "Design Thinking e carreira: como migrei de Psicologia para UX Design",
+//     duration: "00:05:00",
+//     type: "Artigo",
+//   },
+//   {
+//     title:
+//       "De advogada a desenvolvedora: um relato sobre minha migração de carreira e dicas para quem pretende seguir o mesmo caminho",
+//     duration: "00:06:00",
+//     type: "Artigo",
+//   },
+// ];
+
+export default function SimpleAccordion(props) {
+  const [contents, setContents] = useState([]);
+
+  useEffect(() => {
+    setContents(props.contents);
+  });
+
   return (
     <Box>
       <Accordion sx={{ width: "100%" }}>
@@ -24,13 +52,21 @@ export default function SimpleAccordion() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Accordion</Typography>
+          <Typography>{props.title}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {/* <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography> */}
+          {/* {contents?.map((content) => {
+            <CardContent
+              title={content.title}
+              duration={content.duration}
+              type={content.type}
+            />;
+          })} */}
+          <CardContent
+            title={contents[0]?.title}
+            duration={contents[0]?.duration}
+            type={contents[0]?.type}
+          />
         </AccordionDetails>
       </Accordion>
     </Box>
