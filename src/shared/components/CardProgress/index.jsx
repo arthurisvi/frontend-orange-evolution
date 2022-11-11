@@ -17,27 +17,47 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const Title = styled.h2`
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #555252;
+`;
+
+const Mobile = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 export default function CardProgress(props) {
   return (
+    <Box
+      sx={{
+        width: 490,
+        padding: "45px",
+        backgroundColor: "#8C9BA9",
+        borderRadius: "6px",
+      }}
+    >
+      <Title>Trilha em andamento</Title>
       <Box
         sx={{
-          width: 490,
-          padding: "45px",
-          backgroundColor: "#8C9BA9",
-          borderRadius: "6px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          marginTop: "30px",
         }}
       >
-        <h2>Trilhas em andamento</h2>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "30px" }}>
-          <Box sx={{ width: "320px", color: "#96D86E" }}>
-            <LinearProgress color = "inherit" variant="determinate" value={50} />
-          </Box>
-          <p>{props.trailTitle}</p>
-          <p>{props.trailClass}</p>
+        <Box sx={{ width: "320px", color: "#96D86E" }}>
+          <LinearProgress color="inherit" variant="determinate" value={50} />
+        </Box>
+        <strong>{props.trailTitle}</strong>
+        <p>Conteúdo: {props.trailClass}</p>
       </Box>
-      <StyledLink to = {`trilha/${props.trailId}`}>
-        <Button sx={{marginTop: "15px"}} variant="contained">Continuar</Button>
+      <StyledLink to={`trilha/${props.trailId}`}>
+        <Button sx={{ marginTop: "15px" }} variant="contained">
+          Continuar
+        </Button>
       </StyledLink>
-      </Box>
+    </Box>
   );
 }
