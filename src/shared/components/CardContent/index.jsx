@@ -42,6 +42,10 @@ const CardIcon = styled.div`
   }
 `;
 
+const Text = styled.p`
+  font-size: ${(props) => props.size};
+`;
+
 export default function CardContent(props) {
   return (
     <Card>
@@ -54,8 +58,16 @@ export default function CardContent(props) {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
-          <strong>{props.title}</strong>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text size="18px">
+            <strong>{props.title}</strong>
+          </Text>
           <Box
             sx={{
               padding: "0.375rem",
@@ -70,10 +82,11 @@ export default function CardContent(props) {
             <p>{props.type}</p>
           </Box>
         </Box>
+        <Text size="14px">Conteudo por: {props.author}</Text>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <AccessTimeIcon />
-            <p>Duração: {props.duration}</p>
+            <Text size="14px">Duração: {props.duration}</Text>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <CheckCircleOutlineIcon />
