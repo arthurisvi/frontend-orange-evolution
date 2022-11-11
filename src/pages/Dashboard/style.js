@@ -35,6 +35,6 @@ export const ContainerCards = styled.div `
 export const Container = styled.div `
   padding: 5rem 8.75rem 5rem 8.75rem;
   @media screen and (max-width: 958px) {
-    padding: 10px;
+    padding: 15px;
   }
 `;

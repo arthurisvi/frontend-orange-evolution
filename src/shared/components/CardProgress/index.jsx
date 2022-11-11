@@ -34,6 +34,14 @@ const Card = styled.div`
   }
 `;
 
+const BoxProgress = styled.div`
+  width: 320px;
+  color: #96d86e;
+  @media screen and (max-width: 1165px) {
+    width: 80%;
+  }
+`;
+
 export default function CardProgress(props) {
   return (
     <Card>
@@ -46,9 +54,11 @@ export default function CardProgress(props) {
           marginTop: "30px",
         }}
       >
-        <Box sx={{ width: "320px", color: "#96D86E" }}>
+        {/* <Box sx={{ width: "320px", color: "#96D86E" }}> */}
+        <BoxProgress>
           <LinearProgress color="inherit" variant="determinate" value={50} />
-        </Box>
+        </BoxProgress>
+        {/* </Box> */}
         <strong>{props.trailTitle}</strong>
         <p>Conteúdo: {props.trailClass}</p>
       </Box>
