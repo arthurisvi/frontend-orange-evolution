@@ -6,6 +6,27 @@ import Box from "@mui/material/Box";
 import api from "../../shared/services/api";
 import TrailProgress from "../../shared/components/TrailProgress";
 
+export const contents = [
+  {
+    title:
+      "UX/UI Guia definitivo de como migrar para UX Design: 5 passos para virar um UX",
+    duration: "00:06:00",
+    type: "Artigo",
+  },
+  {
+    title:
+      "Design Thinking e carreira: como migrei de Psicologia para UX Design",
+    duration: "00:05:00",
+    type: "Artigo",
+  },
+  {
+    title:
+      "De advogada a desenvolvedora: um relato sobre minha migração de carreira e dicas para quem pretende seguir o mesmo caminho",
+    duration: "00:06:00",
+    type: "Artigo",
+  },
+];
+
 const Trail = () => {
   return (
     <body>
@@ -16,10 +37,9 @@ const Trail = () => {
           <TrailProgress />
         </Box>
         <ContainerAccordions>
-          <Accordion />
-          <Accordion />
-          <Accordion />
-          <Accordion />
+          <Accordion contents={contents} title = "O Início"/>
+          <Accordion contents={contents} title= "Conceitos básicos"/>
+          <Accordion contents={contents} title="Opcional"/>
         </ContainerAccordions>
       </Container>
     </body>
