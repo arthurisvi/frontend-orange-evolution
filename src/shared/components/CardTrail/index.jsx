@@ -27,7 +27,7 @@ const ContainerIcon = styled.div`
 const CardTrail = (props) => {
   return (
     <div>
-      <StyledLink to={"/trilha/" + props.id} style={{ textDecoration: "none" }}>
+      <StyledLink to={"/trilha?id=" + props.id} style={{ textDecoration: "none" }}>
         <Box
           sx={{
             width: 270,
