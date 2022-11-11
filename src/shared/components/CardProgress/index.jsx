@@ -2,7 +2,7 @@ import React from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledLink = styled(Link)`
@@ -23,21 +23,20 @@ const Title = styled.h2`
   color: #555252;
 `;
 
-const Mobile = styled.div`
-  display: flex;
-  flex-direction: column;
-`
+const Card = styled.div`
+  width: 30.625rem;
+  padding: 2.813rem;
+  background-color: #8c9ba9;
+  border-radius: 6px;
+  @media screen and (max-width: 958px) {
+    width: 100%;
+    padding: 1.875rem;
+  }
+`;
 
 export default function CardProgress(props) {
   return (
-    <Box
-      sx={{
-        width: 490,
-        padding: "45px",
-        backgroundColor: "#8C9BA9",
-        borderRadius: "6px",
-      }}
-    >
+    <Card>
       <Title>Trilha em andamento</Title>
       <Box
         sx={{
@@ -58,6 +57,6 @@ export default function CardProgress(props) {
           Continuar
         </Button>
       </StyledLink>
-    </Box>
+    </Card>
   );
 }

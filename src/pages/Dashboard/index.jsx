@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Title, MobileDiv } from "./style";
+import { Title, MobileDiv, ContainerCards, Container } from "./style";
 import CardTrail from "../../shared/components/CardTrail";
 import PrimarySearchAppBar from "../../shared/components/Header";
 import CardProgress from "../../shared/components/CardProgress";
@@ -15,33 +15,31 @@ const Dashboard = () => {
   return (
     <body>
       <PrimarySearchAppBar />
-      {/* <MobileDiv> */}
-        <Box sx={{ padding: "5rem 8.75rem 5rem 8.75rem" }}>
-          <Title>Acompanhe sua trilha</Title>
-          <Box
-            sx={{ display: "flex", gap: "1.875rem", marginBottom: "3.75rem" }}
-          >
-            {trails.map((trail) => (
-              <CardProgress
-                trailId={trail.id}
-                trailClass={trail.class}
-                trailTitle={trail.name}
-              />
-            ))}
-          </Box>
-          <Title>Outras trilhas</Title>
-          <Box sx={{ display: "flex", gap: "1.875rem", marginTop: "1.875rem" }}>
-            {trails.map((trail) => (
-              <CardTrail
-                key={trail.id}
-                title={trail.name}
-                description="Trilha"
-                id={trail.id}
-              />
-            ))}
-          </Box>
-        </Box>
-      {/* </MobileDiv> */}
+      <Container>
+        <Title>Acompanhe sua trilha</Title>
+        <ContainerCards>
+          {trails.map((trail) => (
+            <CardProgress
+              trailId={trail.id}
+              trailClass={trail.class}
+              trailTitle={trail.name}
+            />
+          ))}
+        </ContainerCards>
+        <Title>Outras trilhas</Title>
+        {/* <Box sx={{ display: "flex", gap: "1.875rem", marginTop: "1.875rem" }}> */}
+        <ContainerCards>
+          {trails.map((trail) => (
+            <CardTrail
+              key={trail.id}
+              title={trail.name}
+              description="Trilha"
+              id={trail.id}
+            />
+          ))}
+        </ContainerCards>
+        {/* </Box> */}
+      </Container>
     </body>
   );
 };

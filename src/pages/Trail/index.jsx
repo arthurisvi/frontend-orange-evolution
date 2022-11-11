@@ -3,7 +3,7 @@ import PrimarySearchAppBar from "../../shared/components/Header";
 import Accordion from "../../shared/components/Accordion"
 import Box from "@mui/material/Box";
 import api from "../../shared/services/api";
-import TailProgress from "../../shared/components/TrailProgress";
+import TrailProgress from "../../shared/components/TrailProgress";
 
 const Trail = () => {
 
@@ -16,7 +16,7 @@ const Trail = () => {
           <Box sx={{marginLeft: '30px', marginBottom: '30px'}}>
             <h1>Trilha de UX/UI Design</h1>
           </Box>
-          <TailProgress />  
+          <TrailProgress />  
         </Box>
         <Box sx={{display: 'flex', flexDirection: 'column', gap: '30px'}}>
           <Accordion />
