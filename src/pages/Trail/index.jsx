@@ -11,18 +11,22 @@ export const contents = [
     title:
       "UX/UI Guia definitivo de como migrar para UX Design: 5 passos para virar um UX",
     duration: "00:06:00",
+    author: "Orange Juice",
     type: "Artigo",
+    link: "https://medium.com/orangejuicefc/mas-o-que-%C3%A9-ux-330edd9c6887",
   },
   {
     title:
       "Design Thinking e carreira: como migrei de Psicologia para UX Design",
     duration: "00:05:00",
+    author: "Udemy",
     type: "Artigo",
   },
   {
     title:
       "De advogada a desenvolvedora: um relato sobre minha migração de carreira e dicas para quem pretende seguir o mesmo caminho",
     duration: "00:06:00",
+    author: "Alura",
     type: "Artigo",
   },
 ];

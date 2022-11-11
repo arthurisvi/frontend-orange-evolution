@@ -66,6 +66,8 @@ export default function SimpleAccordion(props) {
             title={contents[0]?.title}
             duration={contents[0]?.duration}
             type={contents[0]?.type}
+            author={contents[0]?.author}
+            link={contents[0]?.link}
           />
         </AccordionDetails>
       </Accordion>
