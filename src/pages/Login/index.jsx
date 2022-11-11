@@ -1,6 +1,7 @@
 import React from "react";
 import PrimarySearchAppBar from "../../shared/components/Header";
 import CardProgress from "../../shared/components/CardProgress";
+import SimpleAccordion from "../../shared/components/Accordion";
 
 const trails = [
   { id: 1, title: "Desenvolvimento FullStack", class: "Teste" },
@@ -17,6 +18,7 @@ const Login = () => {
           trailTitle={trail.title}
         />
       ))}
+      <SimpleAccordion />
     </div>
   );
 };
