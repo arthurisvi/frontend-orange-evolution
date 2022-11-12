@@ -28,6 +28,7 @@ const Card = styled.div`
   background-color: rgba(217, 217, 217, 0.7);
   display: flex;
   gap: 10px;
+  margin-top: 25px;
   @media screen and (max-width: 958px) {
     width: 100%;
     gap: 0px;

@@ -45,7 +45,7 @@ const Trails = () => {
         <Box sx={{ marginBottom: "60px" }}>
           {hasTrail ? (
             <div>
-              <Title>Acompanhe sua trilha</Title>
+              <Title>Acompanhe suas trilhas</Title>
               <ContainerCards>
                 {userTrails.map((trail) => (
                   <CardProgress

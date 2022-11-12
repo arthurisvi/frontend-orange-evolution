@@ -1,26 +1,51 @@
-import React from 'react'
-import Header from '../../shared/components/Header'
-import { Box, padding } from '@mui/system'
-import CardContent from '../../shared/components/CardContent';
-import { Typography } from '@material-ui/core';
+import React, { useCallback, useEffect, useState } from "react";
+import Header from "../../shared/components/Header";
+import { Container, ContainerCards } from "./style";
+import { Box } from "@mui/system";
+import CardContent from "../../shared/components/CardContent";
+import { Typography } from "@material-ui/core";
+import { userService } from "../../shared/services/user.service";
 
-const Favorites = () =>{
-    return(
-        <body>   
-            <Header />
-            <Box sx={{
-                padding: '30px',
-                paddingLeft: '200px',
-                paddingRight: '350px',
-                marginTop: '120px'
-            }}>
-            <Box sx={{display:'flex', marginBottom:'60px'}}>
-            <Typography variant='h4'>Conteúdos salvos</Typography>
-            </Box>
-            <CardContent />
-            </Box>
-        </body>
-    );
+const Favorites = () => {
+  const [favorites, setFavorites] = useState([]);
+
+  const fetchData = useCallback(() => {
+    userService
+      .getMyFavorites()
+      .then((res) => {
+        setFavorites(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [favorites]);
+
+  useEffect(() => fetchData(), [fetchData]);
+
+  return (
+    <body>
+      <Header />
+      <Container>
+        <Box sx={{ marginBottom: "30px" }}>
+          <Typography variant="h4">Conteúdos salvos</Typography>
+        </Box>
+        <ContainerCards>
+          {favorites?.map((content) => {
+              return (
+                <CardContent
+                  title={content.title}
+                  duration={content.duration}
+                  type={content.type}
+                  author={content.author}
+                  link={content.link}
+                  registered={true}
+                />
+              );
+          })}
+        </ContainerCards>
+      </Container>
+    </body>
+  );
 };
 
 export default Favorites;
