@@ -78,7 +78,8 @@ const Trails = () => {
             </div>
           )}
         </Box>
-        <Title>{hasTrail ? 'Outras trilhas' : 'Selecione uma trilha' }</Title>
+        {(hasTrail && otherTrails.length > 0) && <Title>Outras trilhas</Title>}
+        {!hasTrail && <Title>Selecione uma trilha</Title>}
         <ContainerCards>
           {otherTrails.map((trail) => (
             <CardTrail

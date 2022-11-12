@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSearchParams } from "react-router-dom";
+import { userService } from "../../services/user.service";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -64,6 +66,16 @@ const Text = styled.p`
 `;
 
 export default function TrailProgress(props) {
+  const [searchParams] = useSearchParams();
+
+  const handleSubmit = () => {
+    const id = searchParams.get("id");
+    userService.signTrail(id).then((res) => {
+      alert(res.data);
+      location.reload();
+    });
+  };
+
   return (
     <Card>
       <ContainerImg></ContainerImg>
@@ -87,7 +99,9 @@ export default function TrailProgress(props) {
                 value={50}
               />
             ) : (
-              <Button variant="contained">Começar trilha</Button>
+              <Button variant="contained" onClick={handleSubmit}>
+                Começar trilha
+              </Button>
             )}
           </BoxProgress>
           <Text size="16px">Tempo estimado: {props.estimatedTime} horas</Text>
