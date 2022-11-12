@@ -17,11 +17,6 @@ const Box = styled.div`
 `;
 
 export default function SimpleAccordion(props) {
-  const [contents, setContents] = useState([]);
-
-  useEffect(() => {
-    setContents(props.contents);
-  },);
 
   return (
     <Box>
@@ -34,22 +29,19 @@ export default function SimpleAccordion(props) {
           <Typography>{props.title}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {/* {contents?.map((content) => {
-            <CardContent
-              title={content.title}
-              duration={content.duration}
-              type={content.type}
-            />;
-          })} */}
-          <CardContent
-            id={contents[0]?.id}
-            title={contents[0]?.title}
-            duration={contents[0]?.duration}
-            type={contents[0]?.type}
-            author={contents[0]?.author}
-            link={contents[0]?.link}
-            registered={props.registered}
-          />
+          {props.contents?.map((content) => {
+            return (
+              <CardContent
+                id={content.id}
+                title={content.title}
+                duration={content.duration}
+                type={content.type}
+                author={content.author}
+                link={content.link}
+                registered={props.registered}
+              />
+            );
+          })}
         </AccordionDetails>
       </Accordion>
     </Box>

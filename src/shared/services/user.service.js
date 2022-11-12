@@ -2,12 +2,28 @@ import api from "./api/index";
 
 const getTrailsByUser = async() => await api.get("/user/getMyTrails");
 
-const getTrailsNotSubscribe = async() => await api.get("/user/notSubscribeTrails");
+const getTrailsNotSubscribe = async() =>
+    await api.get("/user/notSubscribeTrails");
 
-const signTrail = async(id) => await api.post("/user/signTrail", { idTrail: id });
+const getMyFavorites = async() => await api.get("user/favoritedContents");
 
-const setStatusContent = async(id, status) => await api.post("/user/contentStatus", { idContent: id, status: status });
+const signTrail = async(id) =>
+    await api.post("/user/signTrail", { idTrail: id });
 
-const setFavorite = async(id, favorite) => await api.post('/user/favoriteContent', { idContent: id, favorite: favorite })
+const setStatusContent = async(id, status) =>
+    await api.post("/user/contentStatus", { idContent: id, status: status });
 
-export const userService = { getTrailsByUser, getTrailsNotSubscribe, signTrail, setStatusContent, setFavorite };
+const setFavorite = async(id, favorite) =>
+    await api.post("/user/favoriteContent", {
+        idContent: id,
+        favorite: favorite,
+    });
+
+export const userService = {
+    getTrailsByUser,
+    getTrailsNotSubscribe,
+    signTrail,
+    setStatusContent,
+    setFavorite,
+    getMyFavorites,
+};
