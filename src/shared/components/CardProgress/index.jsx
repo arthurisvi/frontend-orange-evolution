@@ -62,7 +62,7 @@ export default function CardProgress(props) {
         <strong>{props.trailTitle}</strong>
         <p>Conteúdo: {props.trailClass}</p>
       </Box>
-      <StyledLink to={`trilha/${props.trailId}`}>
+      <StyledLink to={`/trilha?id=${props.trailId}`}>
         <Button sx={{ marginTop: "15px" }} variant="contained">
           Continuar
         </Button>
