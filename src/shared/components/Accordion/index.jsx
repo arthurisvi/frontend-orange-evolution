@@ -42,6 +42,7 @@ export default function SimpleAccordion(props) {
             />;
           })} */}
           <CardContent
+            id={contents[0]?.id}
             title={contents[0]?.title}
             duration={contents[0]?.duration}
             type={contents[0]?.type}

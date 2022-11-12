@@ -6,4 +6,8 @@ const getTrailsNotSubscribe = async() => await api.get("/user/notSubscribeTrails
 
 const signTrail = async(id) => await api.post("/user/signTrail", { idTrail: id });
 
-export const userService = { getTrailsByUser, getTrailsNotSubscribe, signTrail };
+const setStatusContent = async(id, status) => await api.post("/user/contentStatus", { idContent: id, status: status });
+
+const setFavorite = async(id, favorite) => await api.post('/user/favoriteContent', { idContent: id, favorite: favorite })
+
+export const userService = { getTrailsByUser, getTrailsNotSubscribe, signTrail, setStatusContent, setFavorite };

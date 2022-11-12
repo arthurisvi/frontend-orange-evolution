@@ -4,9 +4,10 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { userService } from "../../services/user.service";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -47,6 +48,18 @@ const Text = styled.p`
 `;
 
 export default function CardContent(props) {
+
+  const handleSetFavorite = (id) => {
+    const favorited = true;
+    userService.setFavorite(id, favorited).then((res) => console.log(res));
+  };
+
+  const handleSetStatusContent = (id) => {
+    const status = "finished";
+
+    userService.setStatusContent(id, status).then((res) => console.log(res));
+  };
+
   return (
     <Card>
       <CardIcon />
@@ -90,8 +103,12 @@ export default function CardContent(props) {
           </Box>
           {props.registered && (
             <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <CheckCircleOutlineIcon />
-              <BookmarkBorderIcon />
+              <IconButton onClick={e => handleSetStatusContent(props.id)}>
+                <CheckCircleOutlineIcon />
+              </IconButton>
+              <IconButton onClick={e => handleSetFavorite(props.id)}>
+                <BookmarkBorderIcon />
+              </IconButton>
             </Box>
           )}
         </Box>
