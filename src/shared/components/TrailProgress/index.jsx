@@ -68,7 +68,7 @@ export default function TrailProgress(props) {
     <Card>
       <ContainerImg></ContainerImg>
       <ContainerContent>
-        <Text size ="20px">
+        <Text size="20px">
           Se você chegou até aqui, é porque quer aprender mais sobre tecnologia,
           especialmente sobre {props.trailName}!
         </Text>
@@ -80,9 +80,17 @@ export default function TrailProgress(props) {
           }}
         >
           <BoxProgress>
-            <LinearProgress color="inherit" variant="determinate" value={50} />
+            {props.registered ? (
+              <LinearProgress
+                color="inherit"
+                variant="determinate"
+                value={50}
+              />
+            ) : (
+              <Button variant="contained">Começar trilha</Button>
+            )}
           </BoxProgress>
-          <Text size = "16px">Tempo estimado: {props.estimatedTime} horas</Text>
+          <Text size="16px">Tempo estimado: {props.estimatedTime} horas</Text>
         </Box>
       </ContainerContent>
     </Card>

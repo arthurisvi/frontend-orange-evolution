@@ -88,10 +88,12 @@ export default function CardContent(props) {
             <AccessTimeIcon />
             <Text size="14px">Duração: {props.duration}</Text>
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-            <CheckCircleOutlineIcon />
-            <BookmarkBorderIcon />
-          </Box>
+          {props.registered && (
+            <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+              <CheckCircleOutlineIcon />
+              <BookmarkBorderIcon />
+            </Box>
+          )}
         </Box>
       </Box>
     </Card>

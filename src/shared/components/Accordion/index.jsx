@@ -16,33 +16,12 @@ const Box = styled.div`
   }
 `;
 
-// const contentsTest = [
-//   {
-//     title:
-//       "UX/UI Guia definitivo de como migrar para UX Design: 5 passos para virar um UX",
-//     duration: "00:06:00",
-//     type: "Artigo",
-//   },
-//   {
-//     title:
-//       "Design Thinking e carreira: como migrei de Psicologia para UX Design",
-//     duration: "00:05:00",
-//     type: "Artigo",
-//   },
-//   {
-//     title:
-//       "De advogada a desenvolvedora: um relato sobre minha migração de carreira e dicas para quem pretende seguir o mesmo caminho",
-//     duration: "00:06:00",
-//     type: "Artigo",
-//   },
-// ];
-
 export default function SimpleAccordion(props) {
   const [contents, setContents] = useState([]);
 
   useEffect(() => {
     setContents(props.contents);
-  });
+  },);
 
   return (
     <Box>
@@ -68,6 +47,7 @@ export default function SimpleAccordion(props) {
             type={contents[0]?.type}
             author={contents[0]?.author}
             link={contents[0]?.link}
+            registered={props.registered}
           />
         </AccordionDetails>
       </Accordion>

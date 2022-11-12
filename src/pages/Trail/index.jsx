@@ -6,13 +6,34 @@ import Accordion from "../../shared/components/Accordion";
 import Box from "@mui/material/Box";
 import TrailProgress from "../../shared/components/TrailProgress";
 import { trailService } from "../../shared/services/trail.service";
+import { userService } from "../../shared/services/user.service";
 
 const Trail = () => {
   const [initialContents, setInitialContents] = useState([]);
   const [basicContents, setBasicContents] = useState([]);
   const [optionalContents, setOptionalContents] = useState([]);
+  const [userRegisteredTrail, setUserRegisteredTrail] = useState(false);
   const [trail, setTrail] = useState({});
   const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const trailId = searchParams.get("id");
+
+    userService
+      .getTrailsByUser()
+      .then((res) => {
+        if (res.data.lenght === 0) {
+          setUserRegisteredTrail(false)
+        } else {
+          res.data.forEach((trail) => {
+            if (trail.id === trailId) {
+              setUserRegisteredTrail(true)
+            }
+          })
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const fetchData = useCallback(() => {
     const id = searchParams.get("id");
@@ -48,12 +69,25 @@ const Trail = () => {
           <TrailProgress
             trailName={trail.name}
             estimatedTime={trail.estimated_time}
+            registered={userRegisteredTrail}
           />
         </Box>
         <ContainerAccordions>
-          <Accordion contents={initialContents} title="O Início" />
-          <Accordion contents={basicContents} title="Conceitos básicos" />
-          <Accordion contents={optionalContents} title="Opcional" />
+          <Accordion
+            contents={initialContents}
+            title="O Início"
+            registered={userRegisteredTrail}
+          />
+          <Accordion
+            contents={basicContents}
+            title="Conceitos básicos"
+            registered={userRegisteredTrail}
+          />
+          <Accordion
+            contents={optionalContents}
+            title="Opcional"
+            registered={userRegisteredTrail}
+          />
         </ContainerAccordions>
       </Container>
     </body>
