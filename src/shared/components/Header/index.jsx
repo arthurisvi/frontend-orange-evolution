@@ -98,20 +98,20 @@ export default function PrimarySearchAppBar() {
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={menuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Sair</MenuItem>
     </Menu>
   );
 
@@ -190,8 +190,8 @@ export default function PrimarySearchAppBar() {
             />
           </Search> */}
           <Box sx ={{display: 'flex', gap: '15px', fontSize:'14px', }}>
-          <StyledLink to ="/trilhas">INÍCIO</StyledLink>
-          <StyledLink to = "/favoritos">FAVORITOS</StyledLink>
+          <StyledLink to ="/dashboard">INÍCIO</StyledLink>
+          <StyledLink to = "/meus-favoritos">FAVORITOS</StyledLink>
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {/* <IconButton size="large" aria-label="show 4 new mails" color="inherit">
