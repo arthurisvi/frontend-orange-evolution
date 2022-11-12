@@ -57,17 +57,21 @@ const ContainerContent = styled.div`
     justify-content: center;
     gap: 30px;
   }
-`
+`;
+
+const Text = styled.p`
+  font-size: ${(props) => props.size};
+`;
 
 export default function TrailProgress(props) {
   return (
     <Card>
       <ContainerImg></ContainerImg>
-        <ContainerContent>
-        <p>
+      <ContainerContent>
+        <Text size ="20px">
           Se você chegou até aqui, é porque quer aprender mais sobre tecnologia,
-          especialmente sobre UI/UX Desgin!
-        </p>
+          especialmente sobre {props.trailName}!
+        </Text>
         <Box
           sx={{
             display: "flex",
@@ -78,9 +82,9 @@ export default function TrailProgress(props) {
           <BoxProgress>
             <LinearProgress color="inherit" variant="determinate" value={50} />
           </BoxProgress>
-          <p>Tempo estimado: 30 horas</p>
-          </Box>
-        </ContainerContent>
+          <Text size = "16px">Tempo estimado: {props.estimatedTime} horas</Text>
+        </Box>
+      </ContainerContent>
     </Card>
   );
 }

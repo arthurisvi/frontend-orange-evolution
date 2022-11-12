@@ -10,8 +10,10 @@ export const ContainerAccordions = styled.div `
   }
 `;
 
-export const Title = styled.h1 `
+export const Title = styled.p `
   margin-bottom: 30px;
+  font-size: 34px;
+  font-weight: 400;
   @media screen and (max-width: 958px) {
     text-align: center;
   }
