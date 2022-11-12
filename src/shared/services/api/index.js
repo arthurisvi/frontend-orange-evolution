@@ -1,11 +1,14 @@
 import Axios from "axios"
 
-const api = Axios.create({
-    baseURL: 'http://localhost:3333/api',
-    headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-    }
-})
+const baseURL = "http://127.0.0.1:3333/api";
 
-export default api
+const getToken = () => localStorage.getItem("token");
+
+const getAuthorizationHeader = () => `Bearer ${getToken()}`;
+
+const api = Axios.create({
+    baseURL,
+    headers: { Authorization: getAuthorizationHeader() },
+});
+
+export default api;
