@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useSearchParams } from "react-router-dom";
+import { userService } from "../../services/user.service";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -57,17 +59,31 @@ const ContainerContent = styled.div`
     justify-content: center;
     gap: 30px;
   }
-`
+`;
+
+const Text = styled.p`
+  font-size: ${(props) => props.size};
+`;
 
 export default function TrailProgress(props) {
+  const [searchParams] = useSearchParams();
+
+  const handleSubmit = () => {
+    const id = searchParams.get("id");
+    userService.signTrail(id).then((res) => {
+      alert(res.data);
+      location.reload();
+    });
+  };
+
   return (
     <Card>
       <ContainerImg></ContainerImg>
-        <ContainerContent>
-        <p>
+      <ContainerContent>
+        <Text size="20px">
           Se você chegou até aqui, é porque quer aprender mais sobre tecnologia,
-          especialmente sobre UI/UX Desgin!
-        </p>
+          especialmente sobre {props.trailName}!
+        </Text>
         <Box
           sx={{
             display: "flex",
@@ -76,11 +92,21 @@ export default function TrailProgress(props) {
           }}
         >
           <BoxProgress>
-            <LinearProgress color="inherit" variant="determinate" value={50} />
+            {props.registered ? (
+              <LinearProgress
+                color="inherit"
+                variant="determinate"
+                value={50}
+              />
+            ) : (
+              <Button variant="contained" onClick={handleSubmit}>
+                Começar trilha
+              </Button>
+            )}
           </BoxProgress>
-          <p>Tempo estimado: 30 horas</p>
-          </Box>
-        </ContainerContent>
+          <Text size="16px">Tempo estimado: {props.estimatedTime} horas</Text>
+        </Box>
+      </ContainerContent>
     </Card>
   );
 }
