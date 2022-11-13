@@ -39,6 +39,7 @@ export default function SimpleAccordion(props) {
                 author={content.author}
                 link={content.link}
                 registered={props.registered}
+                isFavorite={content.id.includes(props.favorites)}
               />
             );
           })}

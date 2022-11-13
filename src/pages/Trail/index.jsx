@@ -15,8 +15,18 @@ const Trail = () => {
   const [userRegisteredTrail, setUserRegisteredTrail] = useState(false);
   const [trail, setTrail] = useState({});
   const [searchParams] = useSearchParams();
+  const [favoritesIds, setIdsFavorites] = useState([])
 
-  useEffect(() => {
+  const getFavorites = useCallback(() => {
+    userService
+      .getMyFavorites()
+      .then((res) => {
+        setIdsFavorites(res.data.map((content) => content.id));
+      })
+      .catch((err) => console.log(err));
+  }, [])
+
+  const verifiyUserTrail = useCallback(() => {
     const trailId = searchParams.get("id");
 
     userService
@@ -58,6 +68,8 @@ const Trail = () => {
       });
   }, []);
 
+  useEffect(() => getFavorites(), [getFavorites]);
+  useEffect(() => verifiyUserTrail(), [verifiyUserTrail]);
   useEffect(() => fetchData(), [fetchData]);
 
   return (
@@ -75,16 +87,19 @@ const Trail = () => {
         <ContainerAccordions>
           <Accordion
             contents={initialContents}
+            favorites={favoritesIds}
             title="O Início"
             registered={userRegisteredTrail}
           />
           <Accordion
             contents={basicContents}
+            favorites={favoritesIds}
             title="Conceitos básicos"
             registered={userRegisteredTrail}
           />
           <Accordion
             contents={optionalContents}
+            favorites={favoritesIds}
             title="Opcional"
             registered={userRegisteredTrail}
           />

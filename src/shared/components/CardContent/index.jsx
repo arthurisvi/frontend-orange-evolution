@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
-import LinearProgress from "@mui/material/LinearProgress";
+import React, { useState, useEffect, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import Box from "@mui/material/Box";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { userService } from "../../services/user.service";
+import { contentService } from "../../services/content.service";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -49,16 +52,41 @@ const Text = styled.p`
 `;
 
 export default function CardContent(props) {
+  const location = useLocation();
+  const [isFavorited, setFavorited] = useState(false);
+  const [isFinished, setFinished] = useState(false);
+
+  useEffect(() => {
+    if (location.pathname.includes("/meus-favoritos")) {
+      setFavorited(true);
+    }
+  }, []);
 
   const handleSetFavorite = (id) => {
-    const favorited = true;
-    userService.setFavorite(id, favorited).then((res) => console.log(res));
+    userService
+      .setFavorite(id, !isFavorited)
+      .then((res) => {
+        // console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+      .finally(() => {
+        setFavorited(!isFavorited);
+      });
   };
 
   const handleSetStatusContent = (id) => {
-    const status = "finished";
+    let status = !isFinished ? "finished" : "notStarted";
 
-    userService.setStatusContent(id, status).then((res) => console.log(res));
+    userService
+      .setStatusContent(id, status)
+      .then((res) => {
+        res.data.status === "finished" ? setFinished(true) : setFinished(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
   };
 
   return (
@@ -104,11 +132,15 @@ export default function CardContent(props) {
           </Box>
           {props.registered && (
             <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <IconButton onClick={e => handleSetStatusContent(props.id)}>
-                <CheckCircleOutlineIcon />
+              <IconButton onClick={(e) => handleSetStatusContent(props.id)}>
+                {isFinished ? <CheckCircleIcon color ="primary"/> : <CheckCircleOutlineIcon />}
               </IconButton>
-              <IconButton onClick={e => handleSetFavorite(props.id)}>
-                <BookmarkBorderIcon />
+              <IconButton onClick={(e) => handleSetFavorite(props.id)}>
+                {isFavorited ? (
+                  <BookmarkIcon color="primary" />
+                ) : (
+                  <BookmarkBorderIcon />
+                )}
               </IconButton>
             </Box>
           )}
