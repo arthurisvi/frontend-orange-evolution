@@ -21,7 +21,6 @@ const Trail = () => {
     userService
       .getMyFavorites()
       .then((res) => {
-        console.log(res.data)
         setIdsFavorites(res.data.map((content) => content.id));
       })
       .catch((err) => console.log(err));

@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import Box from "@mui/material/Box";
 import { IconButton } from "@mui/material";
@@ -53,7 +54,8 @@ const Text = styled.p`
 export default function CardContent(props) {
   const location = useLocation();
   const [isFavorited, setFavorited] = useState(false);
-  
+  const [isFinished, setFinished] = useState(false);
+
   useEffect(() => {
     if (location.pathname.includes("/meus-favoritos")) {
       setFavorited(true);
@@ -61,20 +63,30 @@ export default function CardContent(props) {
   }, []);
 
   const handleSetFavorite = (id) => {
-    userService.setFavorite(id, !isFavorited)
+    userService
+      .setFavorite(id, !isFavorited)
       .then((res) => {
-        console.log(res)
-      }).catch((e) => {
-        console.log(e)
-      }).finally(() => {
-        setFavorited(!isFavorited);
+        // console.log(res);
       })
+      .catch((e) => {
+        console.log(e);
+      })
+      .finally(() => {
+        setFavorited(!isFavorited);
+      });
   };
 
   const handleSetStatusContent = (id) => {
-    const status = "finished";
+    let status = !isFinished ? "finished" : "notStarted";
 
-    userService.setStatusContent(id, status).then((res) => console.log(res));
+    userService
+      .setStatusContent(id, status)
+      .then((res) => {
+        res.data.status === "finished" ? setFinished(true) : setFinished(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
   };
 
   return (
@@ -121,7 +133,7 @@ export default function CardContent(props) {
           {props.registered && (
             <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
               <IconButton onClick={(e) => handleSetStatusContent(props.id)}>
-                <CheckCircleOutlineIcon />
+                {isFinished ? <CheckCircleIcon color ="primary"/> : <CheckCircleOutlineIcon />}
               </IconButton>
               <IconButton onClick={(e) => handleSetFavorite(props.id)}>
                 {isFavorited ? (
