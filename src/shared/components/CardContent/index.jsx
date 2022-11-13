@@ -8,11 +8,11 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
+import AlertDialog from "../ModalConfirm";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { userService } from "../../services/user.service";
-import { contentService } from "../../services/content.service";
 import AuthContext from "../../contexts/auth";
 
 const StyledLink = styled(Link)`
@@ -70,14 +70,13 @@ export default function CardContent(props) {
     userService
       .setFavorite(id, !isFavorited)
       .then((res) => {
-        // console.log(res);
+        setFavorited(!isFavorited);
       })
       .catch((e) => {
         console.log(e);
-      })
-      .finally(() => {
-        setFavorited(!isFavorited);
       });
+    // .finally(() => {
+    // });
   };
 
   const handleSetStatusContent = (id) => {
@@ -152,11 +151,16 @@ export default function CardContent(props) {
               </IconButton>
             </Box>
           )}
-          {userContext.tag === "admin" && (
+          {userContext?.tag === "admin" && (
             <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <IconButton>
+              {/* <IconButton onClick={(e) => deleteContent(props.id)}>
                 <DeleteOutlineIcon />
-              </IconButton>
+              </IconButton> */}
+              <AlertDialog
+                text="Tem certeza que deseja excluir esse conteúdo?"
+                title="Excluir conteúdo"
+                id={props.id}
+              />
               <IconButton>
                 <EditIcon />
               </IconButton>
