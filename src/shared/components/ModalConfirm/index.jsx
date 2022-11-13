@@ -17,19 +17,15 @@ export default function AlertDialog(props) {
       .deleteContent(id)
       .then((res) => {
         setOpen(false);
+        location.reload()
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => (setOpen(true));
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
