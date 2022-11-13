@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { userService } from "../../services/user.service";
 import AuthContext from "../../contexts/auth";
+import CustomizedDialogs from "../Modal"
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -153,17 +154,15 @@ export default function CardContent(props) {
           )}
           {userContext?.tag === "admin" && (
             <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              {/* <IconButton onClick={(e) => deleteContent(props.id)}>
-                <DeleteOutlineIcon />
-              </IconButton> */}
               <AlertDialog
                 text="Tem certeza que deseja excluir esse conteúdo?"
                 title="Excluir conteúdo"
                 id={props.id}
               />
-              <IconButton>
-                <EditIcon />
-              </IconButton>
+              <CustomizedDialogs
+                idContent={props.id} 
+                function="edit"
+              />
             </Box>
           )}
         </Box>

@@ -11,6 +11,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Dialog from "@mui/material/Dialog";
+import EditIcon from "@mui/icons-material/Edit";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
@@ -60,7 +61,7 @@ BootstrapDialogTitle.propTypes = {
 
 const contentTypes = ["Live", "Livro", "Vídeo", "Curso", "Artigo", "Glossário"];
 
-export default function CustomizedDialogs() {
+export default function CustomizedDialogs(props) {
   const [searchParams] = useSearchParams();
   const [open, setOpen] = useState(false);
   const [created, setCreated] = useState(false);
@@ -74,7 +75,7 @@ export default function CustomizedDialogs() {
     category: "",
     idTrail: null,
   });
-  
+
   const clearData = () => {
     setData({
       ...data,
@@ -86,7 +87,26 @@ export default function CustomizedDialogs() {
       type: "",
       category: "",
     });
-  }
+  };
+
+  const fetchDataToEdit = (id) => {
+    contentService
+      .showContent(id)
+      .then((res) => {
+        setData({
+          ...data,
+          id: res.data.id,
+          title: res.data.title,
+          author: res.data.author,
+          duration: res.data.duration,
+          link: res.data.link,
+          type: res.data.type,
+          category: res.data.category,
+        })
+      })
+      .catch((e) => console.log(e))
+      .finally(handleClickOpen());
+  };
 
   const submitData = (id) => {
     const trailId = searchParams.get("id");
@@ -107,10 +127,23 @@ export default function CustomizedDialogs() {
         .catch((err) => {
           console.log(err);
         });
+    } else {
+      contentService
+        .updateContent(id, data)
+        .then((res) => {
+          if (res.data) {
+            clearData();
+            setCreated(true);
+            setTimeout(() => location.reload(), 700)
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
-  const handleClickOpen = () => (setOpen(true));
+  const handleClickOpen = () => setOpen(true);
   const handleClose = () => {
     clearData();
     setOpen(false);
@@ -119,14 +152,19 @@ export default function CustomizedDialogs() {
 
   return (
     <div>
-      <Button
-        variant="contained"
-        startIcon={<AddIcon />}
-        onClick={handleClickOpen}
-      >
-        NOVO CONTEÚDO
-      </Button>
-
+      {props.function === "edit" ? (
+        <IconButton onClick={(e) => fetchDataToEdit(props.idContent)}>
+          <EditIcon />
+        </IconButton>
+      ) : (
+        <Button
+          variant="contained"
+          startIcon={<AddIcon />}
+          onClick={handleClickOpen}
+        >
+          NOVO CONTEÚDO
+        </Button>
+      )}
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
