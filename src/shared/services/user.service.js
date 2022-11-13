@@ -1,5 +1,7 @@
 import api from "./api/index";
 
+const getUser = async() => await api.get("/user/myProfile")
+
 const getTrailsByUser = async() => await api.get("/user/getMyTrails");
 
 const getTrailsNotSubscribe = async() =>
@@ -26,4 +28,5 @@ export const userService = {
     setStatusContent,
     setFavorite,
     getMyFavorites,
+    getUser,
 };
