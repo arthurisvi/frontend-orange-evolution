@@ -8,19 +8,17 @@ import { userService } from "../../shared/services/user.service";
 
 const Trails = () => {
   const [hasTrail, setHasTrail] = useState(false);
-  const [userTrails, setUserTrails] = useState([])
-  const [otherTrails, setOtherTrails] = useState([])
+  const [userTrails, setUserTrails] = useState([]);
+  const [otherTrails, setOtherTrails] = useState([]);
 
   useEffect(() => {
     userService
       .getTrailsNotSubscribe()
-      .then((res) => { 
-        console.log(res.data)
+      .then((res) => {
         setOtherTrails(res.data);
       })
       .catch((err) => console.log(err));
-  }, [])
-
+  }, []);
 
   const fetchData = useCallback(() => {
     userService
@@ -28,7 +26,7 @@ const Trails = () => {
       .then((res) => {
         if (res.data.length > 0) {
           setHasTrail(true);
-          setUserTrails(res.data)
+          setUserTrails(res.data);
         }
       })
       .catch((err) => {
@@ -78,7 +76,7 @@ const Trails = () => {
             </div>
           )}
         </Box>
-        {(hasTrail && otherTrails.length > 0) && <Title>Outras trilhas</Title>}
+        {hasTrail && otherTrails.length > 0 && <Title>Outras trilhas</Title>}
         {!hasTrail && <Title>Selecione uma trilha</Title>}
         <ContainerCards>
           {otherTrails.map((trail) => (
