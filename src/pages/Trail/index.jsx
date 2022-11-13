@@ -4,12 +4,11 @@ import PrimarySearchAppBar from "../../shared/components/Header";
 import { ContainerAccordions, Title, Container } from "./style";
 import Accordion from "../../shared/components/Accordion";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import TrailProgress from "../../shared/components/TrailProgress";
 import { trailService } from "../../shared/services/trail.service";
 import { userService } from "../../shared/services/user.service";
 import AuthContext from "../../shared/contexts/auth";
+import CustomizedDialogs from "../../shared/components/Modal"
 
 const Trail = () => {
   const [initialContents, setInitialContents] = useState([]);
@@ -95,8 +94,8 @@ const Trail = () => {
                 width: "100%",
                 justifyContent: "center",
               }}
-            >
-              <Button variant="contained" startIcon={<AddIcon/>}>NOVO CONTEÚDO</Button>
+              >
+                <CustomizedDialogs/>
             </Box>
           )}
         </Box>
