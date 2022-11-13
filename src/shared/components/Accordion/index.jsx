@@ -26,7 +26,7 @@ export default function SimpleAccordion(props) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>{props.title}</Typography>
+          <Typography sx={{ fontSize: "24px" }}>{props.title}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           {props.contents?.map((content) => {

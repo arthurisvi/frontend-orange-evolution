@@ -1,16 +1,19 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { userService } from "../../services/user.service";
 import { contentService } from "../../services/content.service";
+import AuthContext from "../../contexts/auth";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -55,6 +58,7 @@ export default function CardContent(props) {
   const location = useLocation();
   const [isFavorited, setFavorited] = useState(false);
   const [isFinished, setFinished] = useState(false);
+  const userContext = useContext(AuthContext);
 
   useEffect(() => {
     if (location.pathname.includes("/meus-favoritos")) {
@@ -86,7 +90,7 @@ export default function CardContent(props) {
       })
       .catch((e) => {
         console.log(e);
-      })
+      });
   };
 
   return (
@@ -133,7 +137,11 @@ export default function CardContent(props) {
           {props.registered && (
             <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
               <IconButton onClick={(e) => handleSetStatusContent(props.id)}>
-                {isFinished ? <CheckCircleIcon color ="primary"/> : <CheckCircleOutlineIcon />}
+                {isFinished ? (
+                  <CheckCircleIcon color="primary" />
+                ) : (
+                  <CheckCircleOutlineIcon />
+                )}
               </IconButton>
               <IconButton onClick={(e) => handleSetFavorite(props.id)}>
                 {isFavorited ? (
@@ -141,6 +149,16 @@ export default function CardContent(props) {
                 ) : (
                   <BookmarkBorderIcon />
                 )}
+              </IconButton>
+            </Box>
+          )}
+          {userContext.tag === "admin" && (
+            <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+              <IconButton>
+                <DeleteOutlineIcon />
+              </IconButton>
+              <IconButton>
+                <EditIcon />
               </IconButton>
             </Box>
           )}

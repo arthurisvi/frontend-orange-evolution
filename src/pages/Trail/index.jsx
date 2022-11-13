@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 import PrimarySearchAppBar from "../../shared/components/Header";
 import { ContainerAccordions, Title, Container } from "./style";
 import Accordion from "../../shared/components/Accordion";
 import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import TrailProgress from "../../shared/components/TrailProgress";
 import { trailService } from "../../shared/services/trail.service";
 import { userService } from "../../shared/services/user.service";
+import AuthContext from "../../shared/contexts/auth";
 
 const Trail = () => {
   const [initialContents, setInitialContents] = useState([]);
@@ -15,7 +18,8 @@ const Trail = () => {
   const [userRegisteredTrail, setUserRegisteredTrail] = useState(false);
   const [trail, setTrail] = useState({});
   const [searchParams] = useSearchParams();
-  const [favoritesIds, setIdsFavorites] = useState([])
+  const [favoritesIds, setIdsFavorites] = useState([]);
+  const userContext = useContext(AuthContext);
 
   const getFavorites = useCallback(() => {
     userService
@@ -24,7 +28,7 @@ const Trail = () => {
         setIdsFavorites(res.data.map((content) => content.id));
       })
       .catch((err) => console.log(err));
-  }, [])
+  }, []);
 
   const verifiyUserTrail = useCallback(() => {
     const trailId = searchParams.get("id");
@@ -33,13 +37,13 @@ const Trail = () => {
       .getTrailsByUser()
       .then((res) => {
         if (res.data.lenght === 0) {
-          setUserRegisteredTrail(false)
+          setUserRegisteredTrail(false);
         } else {
           res.data.forEach((trail) => {
             if (trail.id === trailId) {
-              setUserRegisteredTrail(true)
+              setUserRegisteredTrail(true);
             }
-          })
+          });
         }
       })
       .catch((err) => console.log(err));
@@ -78,26 +82,41 @@ const Trail = () => {
       <Container>
         <Box sx={{ marginTop: "60px" }}>
           <Title>Trilha de {trail.name}</Title>
-          <TrailProgress
-            trailName={trail.name}
-            estimatedTime={trail.estimated_time}
-            registered={userRegisteredTrail}
-          />
+          {userContext?.tag === "member" ? (
+            <TrailProgress
+              trailName={trail.name}
+              estimatedTime={trail.estimated_time}
+              registered={userRegisteredTrail}
+            />
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center",
+              }}
+            >
+              <Button variant="contained" startIcon={<AddIcon/>}>NOVO CONTEÚDO</Button>
+            </Box>
+          )}
         </Box>
         <ContainerAccordions>
           <Accordion
+            arrowDefault={true}
             contents={initialContents}
             favorites={favoritesIds}
             title="O Início"
             registered={userRegisteredTrail}
           />
           <Accordion
+            arrowDefault={true}
             contents={basicContents}
             favorites={favoritesIds}
             title="Conceitos básicos"
             registered={userRegisteredTrail}
           />
           <Accordion
+            arrowDefault={true}
             contents={optionalContents}
             favorites={favoritesIds}
             title="Opcional"
