@@ -17,10 +17,12 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom';
 import AuthContext from "../../contexts/auth";
+import Logo from "../../../assets/icons/logo.svg"
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: white;
+  color: #556987;
+  font-weight: 500;
   &:focus,
   &:hover,
   &:visited,
@@ -114,7 +116,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Perfil</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Meu Perfil</MenuItem>
       <MenuItem onClick={handleMenuClose}>Sair</MenuItem>
     </Menu>
   );
@@ -124,14 +126,14 @@ export default function PrimarySearchAppBar() {
     <Menu
       anchorEl={mobileMoreAnchorEl}
       anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       id={mobileMenuId}
       keepMounted
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
@@ -152,27 +154,20 @@ export default function PrimarySearchAppBar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <AccountCircle style={{ color: "#556987" }} />
         </IconButton>
-        <p>Profile</p>
+        <p>Meu perfil</p>
       </MenuItem>
     </Menu>
   );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" style={{ background: "#F7F8F9" }}>
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            OrangeJuice
-          </Typography>
+          <img src={Logo} />
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: "flex", gap: "15px", fontSize: "14px" }}>
+          <Box sx={{ display: "flex", gap: "30px", fontSize: "14px" }}>
             <StyledLink to="/dashboard">INÍCIO</StyledLink>
             {userContext?.tag === "member" && (
               <StyledLink to="/meus-favoritos">FAVORITOS</StyledLink>
@@ -188,7 +183,7 @@ export default function PrimarySearchAppBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle sx={{ color: "#556987", fontSize:"32px" }} />
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -200,7 +195,7 @@ export default function PrimarySearchAppBar() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <MoreIcon style={{ color: "#556987" }} />
             </IconButton>
           </Box>
         </Toolbar>
