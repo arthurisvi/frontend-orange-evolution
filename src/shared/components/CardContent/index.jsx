@@ -65,6 +65,10 @@ export default function CardContent(props) {
     if (location.pathname.includes("/meus-favoritos")) {
       setFavorited(true);
     }
+
+    if (props.content.status === "finished") {
+      setFinished(true);
+    }
   }, []);
 
   const handleSetFavorite = (id) => {
@@ -94,84 +98,93 @@ export default function CardContent(props) {
   };
 
   return (
-    <Box
-      sx={{ cursor: "pointer" }}
-      onClick={() => {
-        window.open(props.link, "_blank");
-      }}
-    >
-      <Card>
-        <CardIcon />
+    <Card>
+      <CardIcon />
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
         <Box
           sx={{
-            width: "100%",
             display: "flex",
-            flexDirection: "column",
             justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
           <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+            sx={{ cursor: "pointer" }}
+            onClick={() => {
+              window.open(props.content.link, "_blank");
             }}
           >
             <Text size="18px">
-              <strong>{props.title}</strong>
+              <strong>{props.content.title}</strong>
             </Text>
-
-            <Box
-              sx={{
-                padding: "0.375rem",
-                backgroundColor: "#3D6D9D",
-                borderRadius: "16px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#ffff",
-              }}
-            >
-              <p>{props.type}</p>
-            </Box>
           </Box>
-          <Text size="14px">Conteudo por: {props.author}</Text>
-          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <AccessTimeIcon />
-              <Text size="14px">Duração: {props.duration}</Text>
-            </Box>
-            {props.registered && (
-              <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                <IconButton onClick={(e) => handleSetStatusContent(props.id)}>
-                  {isFinished ? (
-                    <CheckCircleIcon color="primary" />
-                  ) : (
-                    <CheckCircleOutlineIcon />
-                  )}
-                </IconButton>
-                <IconButton onClick={(e) => handleSetFavorite(props.id)}>
-                  {isFavorited ? (
-                    <BookmarkIcon color="primary" />
-                  ) : (
-                    <BookmarkBorderIcon />
-                  )}
-                </IconButton>
-              </Box>
-            )}
-            {userContext?.tag === "admin" && (
-              <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                <AlertDialog
-                  text="Tem certeza que deseja excluir esse conteúdo?"
-                  title="Excluir conteúdo"
-                  id={props.id}
-                />
-                <CustomizedDialogs idContent={props.id} function="edit" />
-              </Box>
-            )}
+
+          <Box
+            sx={{
+              padding: "0.375rem",
+              backgroundColor: "#3D6D9D",
+              borderRadius: "16px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#ffff",
+            }}
+          >
+            <p>{props.content.type}</p>
           </Box>
         </Box>
-      </Card>
-    </Box>
+        <Box
+          sx={{ cursor: "pointer" }}
+          onClick={() => {
+            window.open(props.content.link, "_blank");
+          }}
+        >
+          <Text size="14px">Conteudo por: {props.content.author}</Text>
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+            <AccessTimeIcon />
+            <Text size="14px">Duração: {props.content.duration}</Text>
+          </Box>
+          {props.registered && (
+            <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+              <IconButton
+                onClick={(e) => handleSetStatusContent(props.content.id)}
+              >
+                {isFinished || props.content.status === "finished" ? (
+                  <CheckCircleIcon color="primary" />
+                ) : (
+                  <CheckCircleOutlineIcon />
+                )}
+              </IconButton>
+              <IconButton onClick={(e) => handleSetFavorite(props.content.id)}>
+                {isFavorited || props.content.favorite ? (
+                  <BookmarkIcon color="primary" />
+                ) : (
+                  <BookmarkBorderIcon />
+                )}
+              </IconButton>
+            </Box>
+          )}
+          {userContext?.tag === "admin" && (
+            <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+              <AlertDialog
+                text="Tem certeza que deseja excluir esse conteúdo?"
+                title="Excluir conteúdo"
+                id={props.content.id}
+              />
+              <CustomizedDialogs idContent={props.content.id} function="edit" />
+            </Box>
+          )}
+        </Box>
+      </Box>
+    </Card>
   );
 }

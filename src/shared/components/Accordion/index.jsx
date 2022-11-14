@@ -34,14 +34,8 @@ export default function SimpleAccordion(props) {
           {props.contents?.map((content) => {
             return (
               <CardContent
-                id={content.id}
-                title={content.title}
-                duration={content.duration}
-                type={content.type}
-                author={content.author}
-                link={content.link}
+                content={content}
                 registered={props.registered}
-                isFavorite={content.id.includes(props.favorites)}
               />
             );
           })}

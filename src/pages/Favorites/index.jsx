@@ -34,12 +34,7 @@ const Favorites = () => {
             {favorites?.map((content) => {
               return (
                 <CardContent
-                  id={content.id}
-                  title={content.title}
-                  duration={content.duration}
-                  type={content.type}
-                  author={content.author}
-                  link={content.link}
+                  content={content}
                   registered={true}
                 />
               );

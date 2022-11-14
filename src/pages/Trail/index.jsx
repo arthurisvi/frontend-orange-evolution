@@ -53,16 +53,20 @@ const Trail = () => {
     trailService
       .getById(id)
       .then((res) => {
+        let data = []
+        data = userContext?.tag === "member" && res.data?.contentsUser ? getContentsWithFavoriteAndSaved(res.data.contents, res.data.contentsUser) : res.data.contents
+    
+        console.log(data)
         setInitialContents(
-          res.data.contents.filter((content) => content.category === "initial")
+          data.filter((content) => content.category === "initial")
         );
         setBasicContents(
-          res.data.contents.filter(
+          data.filter(
             (content) => content.category === "basicConcepts"
           )
         );
         setOptionalContents(
-          res.data.contents.filter((content) => content.category === "optional")
+          data.filter((content) => content.category === "optional")
         );
         setTrail(res.data.trail);
       })
@@ -70,6 +74,23 @@ const Trail = () => {
         console.log(err);
       });
   }, []);
+
+  const getContentsWithFavoriteAndSaved = (contents, contentsUser) => {
+    const newContents = contents.map((trail) => {
+      const data = contentsUser.filter((user) => user.content_id === trail.id);
+
+      if (data[0]) {
+        return {
+          ...trail,
+          status: data[0].status,
+          favorite: data[0].favorite,
+        };
+      }
+      return trail;
+    });
+
+    return newContents
+  }
 
   useEffect(() => getFavorites(), [getFavorites]);
   useEffect(() => verifiyUserTrail(), [verifiyUserTrail]);
