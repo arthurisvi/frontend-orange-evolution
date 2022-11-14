@@ -32,7 +32,7 @@ const Card = styled.div`
   width: 100%;
   padding: 0.938rem;
   height: 135px;
-  background-color: rgba(217, 217, 217, 0.7);
+  background-color: #f7f8f9;
   display: flex;
   gap: 10px;
   margin-top: 25px;
