@@ -45,7 +45,7 @@ const CardTrail = (props) => {
               width="100%"
             />
           )}
-          {props.title === "UI/UX Design" && (
+          {props.title === "UX/UI Design" && (
             <img
               src={"https://i.ibb.co/5FVZgLj/card-design.png"}
               alt="icon"

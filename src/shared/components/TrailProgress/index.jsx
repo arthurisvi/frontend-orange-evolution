@@ -78,7 +78,7 @@ export default function TrailProgress(props) {
   return (
     <Card>
       <ContainerImg>
-        {props.trailName === "UI/UX Design" && (
+        {props.trailName === "UX/UI Design" && (
           <img
             src="https://i.ibb.co/3phLFwN/ui-ux.png"
             alt="UX/UI Design"

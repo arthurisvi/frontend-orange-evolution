@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,13 +15,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { userService } from "../../shared/services/user.service";
 import { Navigate } from "react-router-dom";
 import { FormHelperText } from "@mui/material";
-
+import Loading from "../../shared/components/Loading";
 
 const theme = createTheme();
 
 export default function SignInSide() {
-  const [message, setMessage] = useState("")
-  const [validLogin, setValidLogin] = useState(false)
+  const [message, setMessage] = useState("");
+  const [validLogin, setValidLogin] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,20 +34,23 @@ export default function SignInSide() {
         password: data.get("password"),
       })
       .then((res) => {
+        setLoading(true);
         if (res.data.token) {
           localStorage.clear();
           localStorage.setItem("token", res.data.token);
-          setValidLogin(true)
+          setValidLogin(true);
         }
-      }).catch(err => {
+      })
+      .catch((err) => {
         if (err.response.data) {
           setMessage(err.response.data.errors[0].message);
         }
-      });
+      }).finally(setLoading(false));
   };
 
   return (
     <ThemeProvider theme={theme}>
+      <Loading open={loading} />
       {validLogin && <Navigate to="/dashboard" />}
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
@@ -117,7 +121,9 @@ export default function SignInSide() {
                 ENTRAR
               </Button>
               <Grid container></Grid>
-              {message && <FormHelperText error={true}>{message}</FormHelperText>}
+              {message && (
+                <FormHelperText error={true}>{message}</FormHelperText>
+              )}
             </Box>
           </Box>
         </Grid>

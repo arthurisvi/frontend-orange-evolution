@@ -56,7 +56,6 @@ const Trail = () => {
         let data = []
         data = userContext?.tag === "member" && res.data?.contentsUser ? getContentsWithFavoriteAndSaved(res.data.contents, res.data.contentsUser) : res.data.contents
     
-        console.log(data)
         setInitialContents(
           data.filter((content) => content.category === "initial")
         );
@@ -92,9 +91,12 @@ const Trail = () => {
     return newContents
   }
 
-  useEffect(() => getFavorites(), [getFavorites]);
-  useEffect(() => verifiyUserTrail(), [verifiyUserTrail]);
-  useEffect(() => fetchData(), [fetchData]);
+  useEffect(() => {
+    getFavorites()
+    verifiyUserTrail()
+    fetchData();
+
+  }, [getFavorites, verifiyUserTrail, fetchData])
 
   return (
     <body>
