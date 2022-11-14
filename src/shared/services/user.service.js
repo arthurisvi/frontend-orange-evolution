@@ -21,6 +21,10 @@ const setFavorite = async(id, favorite) =>
         favorite: favorite,
     });
 
+const login = async(data) =>{
+    await api.post("/login", data)
+}
+
 export const userService = {
     getTrailsByUser,
     getTrailsNotSubscribe,
@@ -29,4 +33,5 @@ export const userService = {
     setFavorite,
     getMyFavorites,
     getUser,
+    login    
 };
