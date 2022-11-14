@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "../../shared/components/Header";
-import { Container, ContainerCards } from "./style";
+import { Container, ContainerCards, Content, Subtitle, Text } from "./style";
 import { Box } from "@mui/system";
 import CardContent from "../../shared/components/CardContent";
 import { Typography } from "@material-ui/core";
@@ -26,11 +26,12 @@ const Favorites = () => {
     <body>
       <Header />
       <Container>
-        <Box sx={{ marginBottom: "30px" }}>
+        <Box sx={{ marginBottom: "30px", color: "#808080" }}>
           <Typography variant="h4">Conteúdos salvos</Typography>
         </Box>
-        <ContainerCards>
-          {favorites?.map((content) => {
+        {favorites.length > 0 ? (
+          <ContainerCards>
+            {favorites?.map((content) => {
               return (
                 <CardContent
                   id={content.id}
@@ -42,8 +43,19 @@ const Favorites = () => {
                   registered={true}
                 />
               );
-          })}
-        </ContainerCards>
+            })}
+          </ContainerCards>
+        ) : (
+          <Content>
+            <Subtitle>Nenhum conteúdo salvo!</Subtitle>
+            <Box sx={{ marginTop: "20px" }}>
+              <Text>
+                Ainda não há nenhum conteúdo salvo para você ver. Se você deseja
+                salvar um conteúdo acesse as trilhas e clique em “favoritar”.
+              </Text>
+            </Box>
+          </Content>
+        )}
       </Container>
     </body>
   );

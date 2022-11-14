@@ -20,13 +20,15 @@ export default function SimpleAccordion(props) {
 
   return (
     <Box>
-      <Accordion sx={{ width: "100%" }}>
+      <Accordion sx={{ width: "100%" }} >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography sx={{ fontSize: "24px" }}>{props.title}</Typography>
+          <Typography sx={{ fontSize: "24px", color: "#808080" }}>
+            {props.title}
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
           {props.contents?.map((content) => {

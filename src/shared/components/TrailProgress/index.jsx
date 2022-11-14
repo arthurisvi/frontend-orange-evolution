@@ -22,10 +22,10 @@ const StyledLink = styled(Link)`
 const Card = styled.div`
   width: 71.875rem;
   padding: 1.875rem;
-  background-color: #8c9ba9;
+  background-color: #f7f8f9;
   border-radius: 6px;
   display: flex;
-  gap: 15px;
+  gap: 30px;
   @media screen and (max-width: 1165px) {
     width: 100%;
     padding: 1.25rem;
@@ -35,8 +35,7 @@ const Card = styled.div`
 
 const ContainerImg = styled.div`
   width: 15.625rem;
-  height: 9.688rem;
-  background-color: white;
+  /* height: 9.688rem; */
   @media screen and (max-width: 1165px) {
     display: none;
   }
@@ -54,7 +53,7 @@ const ContainerContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 10px;
+  /* padding-top: 10px; */
   @media screen and (max-width: 1165px) {
     justify-content: center;
     gap: 30px;
@@ -62,6 +61,7 @@ const ContainerContent = styled.div`
 `;
 
 const Text = styled.p`
+  color: #808080;
   font-size: ${(props) => props.size};
 `;
 
@@ -71,14 +71,35 @@ export default function TrailProgress(props) {
   const handleSubmit = () => {
     const id = searchParams.get("id");
     userService.signTrail(id).then((res) => {
-      alert(res.data);
-      location.reload();
+      setTimeout(() => location.reload(), 500)
     });
   };
 
   return (
     <Card>
-      <ContainerImg></ContainerImg>
+      <ContainerImg>
+        {props.trailName === "UI/UX Design" && (
+          <img
+            src="https://i.ibb.co/3phLFwN/ui-ux.png"
+            alt="UX/UI Design"
+            width="100%"
+          />
+        )}
+        {props.trailName === "Desenvolvimento Full Stack" && (
+          <img
+            src="https://i.ibb.co/mBZ61JW/dev.png"
+            alt="UX/UI Design"
+            width="100%"
+          />
+        )}
+        {props.trailName === "QA (Quality Assurance)" && (
+          <img
+            src="https://i.ibb.co/3cz00nN/qa.png"
+            alt="UX/UI Design"
+            width="100%"
+          />
+        )}
+      </ContainerImg>
       <ContainerContent>
         <Text size="20px">
           Se você chegou até aqui, é porque quer aprender mais sobre tecnologia,
@@ -99,7 +120,11 @@ export default function TrailProgress(props) {
                 value={50}
               />
             ) : (
-              <Button variant="contained" onClick={handleSubmit}>
+              <Button
+                variant="contained"
+                onClick={handleSubmit}
+                sx={{ backgroundColor: "#00C09B" }}
+              >
                 Começar trilha
               </Button>
             )}
