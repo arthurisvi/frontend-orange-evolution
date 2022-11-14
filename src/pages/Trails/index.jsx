@@ -79,10 +79,16 @@ const Trails = () => {
         <Box sx={{ marginBottom: "60px" }}>
           {hasTrail && (
             <div>
-              <Title marginBottom="0.938rem" marginTop="3.75rem">
+              <Title
+                marginBottom="0.938rem"
+                marginTop="3.75rem"
+                color="#686C72"
+              >
                 Olá, {userContext.name}!
               </Title>
-              <Title marginBottom="1.875rem">Acompanhe suas trilhas</Title>
+              <Title marginBottom="1.875rem" color="#686C72">
+                Acompanhe suas trilhas
+              </Title>
               <ContainerCards>
                 {userTrails.map((trail) => (
                   <CardProgress
