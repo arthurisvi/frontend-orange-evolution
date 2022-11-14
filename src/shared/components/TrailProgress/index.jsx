@@ -71,8 +71,7 @@ export default function TrailProgress(props) {
   const handleSubmit = () => {
     const id = searchParams.get("id");
     userService.signTrail(id).then((res) => {
-      alert(res.data);
-      location.reload();
+      setTimeout(() => location.reload(), 500)
     });
   };
 
