@@ -110,14 +110,12 @@ export default function CustomizedDialogs(props) {
 
   const submitData = (id) => {
     const trailId = searchParams.get("id");
-
+    
     if (!id) {
-      if (data.category !== "initial") {
-        setData({ ...data, idTrail: trailId });
-      }
       contentService
-        .createContent(data)
+        .createContent(data, trailId)
         .then((res) => {
+          console.log(res.data)
           if (res.data) {
             clearData();
             setCreated(true);
