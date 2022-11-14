@@ -12,13 +12,14 @@ const getMyFavorites = async() => await api.get("user/favoritedContents");
 const signTrail = async(id) =>
     await api.post("/user/signTrail", { idTrail: id });
 
-const setStatusContent = async(id, status) =>
-    await api.post("/user/contentStatus", { idContent: id, status: status });
+const setStatusContent = async(id, idTrail, status) =>
+    await api.post("/user/contentStatus", { idContent: id, status: status, idTrail: idTrail });
 
-const setFavorite = async(id, favorite) =>
+const setFavorite = async(id, idTrail, favorite) =>
     await api.post("/user/favoriteContent", {
         idContent: id,
         favorite: favorite,
+        idTrail: idTrail,
     });
 
 const login = async(data) => (await api.post("/login", data))

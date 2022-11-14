@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import AlertDialog from "../ModalConfirm";
 import { IconButton } from "@mui/material";
@@ -15,6 +14,7 @@ import styled from "styled-components";
 import { userService } from "../../services/user.service";
 import AuthContext from "../../contexts/auth";
 import CustomizedDialogs from "../Modal";
+import Loading from "../Loading";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -58,22 +58,20 @@ const Text = styled.p`
 export default function CardContent(props) {
   const location = useLocation();
   const [isFavorited, setFavorited] = useState(false);
-  const [isFinished, setFinished] = useState(false);
+  const [isFinished, setFinished] = useState(props.content.status === "finished" ? true : false);
+  const [loading, setLoading] = useState(false);
   const userContext = useContext(AuthContext);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     if (location.pathname.includes("/meus-favoritos")) {
       setFavorited(true);
     }
-
-    if (props.content.status === "finished") {
-      setFinished(true);
-    }
   }, []);
 
   const handleSetFavorite = (id) => {
     userService
-      .setFavorite(id, !isFavorited)
+      .setFavorite(id, props.content.trail_id, !isFavorited)
       .then((res) => {
         setFavorited(!isFavorited);
       })
@@ -86,15 +84,19 @@ export default function CardContent(props) {
 
   const handleSetStatusContent = (id) => {
     let status = !isFinished ? "finished" : "notStarted";
+    console.log(isFinished)
 
     userService
-      .setStatusContent(id, status)
+      .setStatusContent(id, props.content.trail_id, status)
       .then((res) => {
-        res.data.status === "finished" ? setFinished(true) : setFinished(false);
+        // setFinished(!isFinished);
+        res.data.status === "notStarted" ? setFinished(false) : setFinished(true);
+        // console.log(isFinished)
       })
       .catch((e) => {
         console.log(e);
       });
+    // .finally(window.location.reload());
   };
 
   return (

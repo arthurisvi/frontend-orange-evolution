@@ -20,6 +20,21 @@ const Trail = () => {
   const [favoritesIds, setIdsFavorites] = useState([]);
   const userContext = useContext(AuthContext);
 
+  const [progress, setProgress] = useState(null);
+
+  const getProgressTrail = useCallback(() => {
+    const id = searchParams.get("id");
+
+    trailService
+      .getMyProgress(id)
+      .then((res) => {
+        setProgress(res.data.progress);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const getFavorites = useCallback(() => {
     userService
       .getMyFavorites()
@@ -93,10 +108,10 @@ const Trail = () => {
 
   useEffect(() => {
     getFavorites()
+    getProgressTrail()
     verifiyUserTrail()
     fetchData();
-
-  }, [getFavorites, verifiyUserTrail, fetchData])
+  }, [getFavorites, verifiyUserTrail, fetchData, getProgressTrail])
 
   return (
     <body>
@@ -106,6 +121,7 @@ const Trail = () => {
           <Title>Trilha de {trail.name}</Title>
           {userContext?.tag === "member" ? (
             <TrailProgress
+              progress={progress}
               trailName={trail.name}
               estimatedTime={trail.estimated_time}
               registered={userRegisteredTrail}
@@ -117,8 +133,8 @@ const Trail = () => {
                 width: "100%",
                 justifyContent: "center",
               }}
-              >
-                <CustomizedDialogs/>
+            >
+              <CustomizedDialogs />
             </Box>
           )}
         </Box>

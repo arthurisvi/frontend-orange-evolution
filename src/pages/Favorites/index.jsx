@@ -18,7 +18,7 @@ const Favorites = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [favorites]);
+  }, []);
 
   useEffect(() => fetchData(), [fetchData]);
 
@@ -32,12 +32,7 @@ const Favorites = () => {
         {favorites.length > 0 ? (
           <ContainerCards>
             {favorites?.map((content) => {
-              return (
-                <CardContent
-                  content={content}
-                  registered={true}
-                />
-              );
+              return <CardContent content={content} registered={true} />;
             })}
           </ContainerCards>
         ) : (

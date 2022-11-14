@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { trailService } from "../../services/trail.service";
 import styled from "styled-components";
 
 const StyledLink = styled(Link)`
@@ -49,6 +50,21 @@ const Text = styled.p`
 `;
 
 export default function CardProgress(props) {
+  const [progress, setProgress] = useState(null)
+
+  const fetchData = useCallback(() => {
+    trailService
+      .getMyProgress(props.trailId)
+      .then((res) => {
+        setProgress(res.data.progress);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => fetchData(), [fetchData]);
+
   return (
     <Card>
       <Title>Trilha em andamento</Title>
@@ -62,7 +78,12 @@ export default function CardProgress(props) {
       >
         {/* <Box sx={{ width: "320px", color: "#96D86E" }}> */}
         <BoxProgress>
-          <LinearProgress color="inherit" variant="determinate" value={50} />
+          <Text><strong>{parseInt(progress)}%</strong></Text>
+          <LinearProgress
+            color="inherit"
+            variant="determinate"
+            value={progress}
+          />
         </BoxProgress>
         {/* </Box> */}
         <Text fontWeight="500">{props.trailTitle}</Text>

@@ -71,7 +71,7 @@ export default function TrailProgress(props) {
   const handleSubmit = () => {
     const id = searchParams.get("id");
     userService.signTrail(id).then((res) => {
-      setTimeout(() => location.reload(), 500)
+      setTimeout(() => location.reload(), 500);
     });
   };
 
@@ -114,11 +114,16 @@ export default function TrailProgress(props) {
         >
           <BoxProgress>
             {props.registered ? (
-              <LinearProgress
-                color="inherit"
-                variant="determinate"
-                value={50}
-              />
+              <div>
+                <Text><strong>{parseInt(props.progress)}%</strong></Text>
+                <Box sx={{ color: "#00c09b" }}>
+                  <LinearProgress
+                    color="inherit"
+                    variant="determinate"
+                    value={props.progress}
+                  />
+                </Box>
+              </div>
             ) : (
               <Button
                 variant="contained"
