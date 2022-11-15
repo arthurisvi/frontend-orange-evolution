@@ -5,6 +5,7 @@ import { Box } from "@mui/system";
 import CardContent from "../../shared/components/CardContent";
 import { Typography } from "@material-ui/core";
 import { userService } from "../../shared/services/user.service";
+import Footer from "../../shared/components/Footer";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -45,6 +46,7 @@ const Favorites = () => {
           })}
         </ContainerCards>
       </Container>
+      <Footer />
     </body>
   );
 };
