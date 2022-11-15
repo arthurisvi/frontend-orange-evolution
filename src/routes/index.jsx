@@ -13,9 +13,14 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/dashboard" element={userContext?.tag === 'member' ? <Trails /> : <Dashboard />} />
+      {<Route exact path="/dashboard/admin" element={<Dashboard />} />}
+      {<Route exact path="/dashboard/membro" element={<Trails />} />}
+      <Route
+        path="/dashboard"
+        element={userContext?.tag === "member" ? <Trails /> : <Dashboard />}
+      />
       <Route path="/trilha" element={<Trail />} />
-      <Route path="/meus-favoritos" element = {<Favorites/>} />
+      <Route path="/meus-favoritos" element={<Favorites />} />
     </Routes>
   );
 }

@@ -16,6 +16,7 @@ import { userService } from "../../shared/services/user.service";
 import { Navigate } from "react-router-dom";
 import { FormHelperText } from "@mui/material";
 import Loading from "../../shared/components/Loading";
+import api from "../../shared/services/api"
 
 const theme = createTheme();
 
@@ -23,6 +24,7 @@ export default function SignInSide() {
   const [message, setMessage] = useState("");
   const [validLogin, setValidLogin] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userTag, setUserTag] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +39,9 @@ export default function SignInSide() {
         setLoading(true);
         if (res.data.token) {
           localStorage.clear();
-          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("token", res.data.token.token);
+          localStorage.setItem("tag", res.data.user.tag);
+          setUserTag(res.data.user.tag);
           setValidLogin(true);
         }
       })
@@ -45,13 +49,17 @@ export default function SignInSide() {
         if (err.response.data) {
           setMessage(err.response.data.errors[0].message);
         }
-      }).finally(setLoading(false));
+      })
+      .finally(setLoading(false));
   };
 
   return (
     <ThemeProvider theme={theme}>
       <Loading open={loading} />
-      {validLogin && <Navigate to="/dashboard" />}
+      {validLogin && userTag === "member" && (
+        <Navigate to="/dashboard/membro" />
+      )}
+      {validLogin && userTag === "admin" && <Navigate to="/dashboard/admin" />}
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
