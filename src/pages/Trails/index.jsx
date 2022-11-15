@@ -16,7 +16,6 @@ import Footer from "../../shared/components/Footer";
 import AuthContext from "../../shared/contexts/auth";
 import Image from "../../assets/images/image-dashboard.png";
 
-
 const Trails = () => {
   const [hasTrail, setHasTrail] = useState(false);
   const [userTrails, setUserTrails] = useState([]);
@@ -24,8 +23,10 @@ const Trails = () => {
   const userContext = useContext(AuthContext);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     userService
-      .getTrailsNotSubscribe()
+      .getTrailsNotSubscribe(token)
       .then((res) => {
         setOtherTrails(res.data);
       })
@@ -33,8 +34,10 @@ const Trails = () => {
   }, []);
 
   const fetchData = useCallback(() => {
+    const token = localStorage.getItem("token");
+
     userService
-      .getTrailsByUser()
+      .getTrailsByUser(token)
       .then((res) => {
         if (res.data.length > 0) {
           setHasTrail(true);

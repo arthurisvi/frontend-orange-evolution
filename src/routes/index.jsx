@@ -17,7 +17,7 @@ export function Router() {
       {<Route exact path="/dashboard/membro" element={<Trails />} />}
       <Route
         path="/dashboard"
-        element={userContext?.tag === "member" ? <Trails /> : <Dashboard />}
+        element={localStorage.getItem('tag') === "member" || userContext?.tag === "member" ? <Trails /> : <Dashboard />}
       />
       <Route path="/trilha" element={<Trail />} />
       <Route path="/meus-favoritos" element={<Favorites />} />
