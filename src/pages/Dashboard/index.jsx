@@ -5,6 +5,7 @@ import { Typography } from "@material-ui/core";
 import PrimarySearchAppBar from "../../shared/components/Header";
 import AccordionTrail from "../../shared/components/AccordionTrail";
 import { trailService } from "../../shared/services/trail.service";
+import Footer from "../../shared/components/Footer";
 
 const Dashboard = () => {
   const [trails, setTrails] = useState([]);
@@ -34,6 +35,7 @@ const Dashboard = () => {
           })}
         </ContainerCards>
       </Container>
+      <Footer />
     </body>
   );
 };

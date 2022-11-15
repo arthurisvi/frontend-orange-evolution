@@ -12,8 +12,10 @@ import CardProgress from "../../shared/components/CardProgress";
 import PrimarySearchAppBar from "../../shared/components/Header";
 import Box from "@mui/material/Box";
 import { userService } from "../../shared/services/user.service";
+import Footer from "../../shared/components/Footer";
 import AuthContext from "../../shared/contexts/auth";
 import Image from "../../assets/images/image-dashboard.png";
+
 
 const Trails = () => {
   const [hasTrail, setHasTrail] = useState(false);
@@ -118,6 +120,7 @@ const Trails = () => {
           ))}
         </ContainerCards>
       </Container>
+      <Footer />
     </body>
   );
 };

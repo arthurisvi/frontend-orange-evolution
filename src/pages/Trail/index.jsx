@@ -9,6 +9,7 @@ import { trailService } from "../../shared/services/trail.service";
 import { userService } from "../../shared/services/user.service";
 import AuthContext from "../../shared/contexts/auth";
 import CustomizedDialogs from "../../shared/components/Modal"
+import Footer from "../../shared/components/Footer";
 
 const Trail = () => {
   const [initialContents, setInitialContents] = useState([]);
@@ -162,6 +163,7 @@ const Trail = () => {
           />
         </ContainerAccordions>
       </Container>
+      <Footer />
     </body>
   );
 };
