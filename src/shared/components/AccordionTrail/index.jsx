@@ -18,7 +18,11 @@ const StyledLink = styled(Link)`
 
 const Text = styled.p`
   font-size: 1.5rem;
-`
+  color: #808080;
+  @media screen and (max-width: 1165px) {
+    font-size: 1rem;
+  }
+`;
 
 const AccordionTrail = (props) => {
   return (

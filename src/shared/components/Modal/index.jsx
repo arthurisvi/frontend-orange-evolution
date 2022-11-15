@@ -59,7 +59,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.is,
 };
 
-const contentTypes = ["Live", "Livro", "Vídeo", "Curso", "Artigo", "Glossário"];
+const contentTypes = ["Live", "Livro", "Vídeo", "Curso", "Artigo"];
 
 export default function CustomizedDialogs(props) {
   const [searchParams] = useSearchParams();

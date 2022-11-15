@@ -18,6 +18,7 @@ export const Title = styled.h1 `
   margin-top: ${(props) => (props.marginTop ? props.marginTop : "0")};
   @media screen and (max-width: 958px) {
     margin-bottom: 1.875rem;
+    font-size: 1.5rem
   }
 `;
 
@@ -30,7 +31,7 @@ export const Container = styled.section `
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 0.938rem 1.875rem 0 1.875rem;
+    padding: 0px;
     align-items: center;
     justify-content: center;
   }
