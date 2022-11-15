@@ -16,6 +16,15 @@ const Box = styled.div`
   }
 `;
 
+const Title = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #808080;
+  @media screen and (max-width: 958px) {
+    font-size: 1.25rem;
+  }
+`;
+
 export default function SimpleAccordion(props) {
 
   return (
@@ -26,21 +35,12 @@ export default function SimpleAccordion(props) {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography sx={{ fontSize: "24px" }}>{props.title}</Typography>
+          <Title>{props.title}</Title>
         </AccordionSummary>
         <AccordionDetails>
           {props.contents?.map((content) => {
             return (
-              <CardContent
-                id={content.id}
-                title={content.title}
-                duration={content.duration}
-                type={content.type}
-                author={content.author}
-                link={content.link}
-                registered={props.registered}
-                isFavorite={content.id.includes(props.favorites)}
-              />
+              <CardContent content={content} registered={props.registered} />
             );
           })}
         </AccordionDetails>

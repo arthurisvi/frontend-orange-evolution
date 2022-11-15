@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Icon from '../../../assets/icons/iconTeste.png'
+import Icon from "../../../assets/icons/iconTeste.png";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -22,26 +22,44 @@ const ContainerIcon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const CardTrail = (props) => {
   return (
     <div>
-      <StyledLink to={"/trilha?id=" + props.id} style={{ textDecoration: "none" }}>
+      <StyledLink
+        to={"/trilha?id=" + props.id}
+        style={{ textDecoration: "none" }}
+      >
         <Box
           sx={{
             width: 270,
             height: 340,
-            border: "1px solid black",
             marginBottom: "15px",
           }}
         >
-          <ContainerIcon>
-          <img src={Icon} alt="icon" />
-          </ContainerIcon>
+          {props.title === "Desenvolvimento Full Stack" && (
+            <img
+              src={"https://i.ibb.co/LZgshJz/card-dev.png"}
+              alt="icon"
+              width="100%"
+            />
+          )}
+          {props.title === "UX/UI Design" && (
+            <img
+              src={"https://i.ibb.co/5FVZgLj/card-design.png"}
+              alt="icon"
+              width="100%"
+            />
+          )}
+          {props.title === "QA (Quality Assurance)" && (
+            <img
+              src={"https://i.ibb.co/gzQJMLH/Group-27-1.png"}
+              alt="icon"
+              width="100%"
+            />
+          )}
         </Box>
-        <strong>{props.title}</strong>
-        <p>{props.description}</p>
       </StyledLink>
     </div>
   );

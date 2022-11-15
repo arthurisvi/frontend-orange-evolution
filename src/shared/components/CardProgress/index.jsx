@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { trailService } from "../../services/trail.service";
 import styled from "styled-components";
 
 const StyledLink = styled(Link)`
@@ -20,13 +21,16 @@ const StyledLink = styled(Link)`
 const Title = styled.h2`
   font-size: 1.75rem;
   font-weight: 400;
-  color: #555252;
+  color: #686c72;
+  @media screen and (max-width: 958px) {
+    font-size: 1.25rem;
+  }
 `;
 
 const Card = styled.div`
   width: 30.625rem;
-  padding: 2.813rem;
-  background-color: #8c9ba9;
+  padding: 1.875rem;
+  background-color: #f7f8f9;
   border-radius: 6px;
   @media screen and (max-width: 958px) {
     width: 100%;
@@ -36,13 +40,34 @@ const Card = styled.div`
 
 const BoxProgress = styled.div`
   width: 320px;
-  color: #96d86e;
+  color: #00c09b;
   @media screen and (max-width: 1165px) {
     width: 80%;
   }
 `;
 
+const Text = styled.p`
+  color: #686c72;
+  font-size: 1rem;
+  font-weight: ${(props) => (props.fontWeight)};
+`;
+
 export default function CardProgress(props) {
+  const [progress, setProgress] = useState(null)
+
+  const fetchData = useCallback(() => {
+    trailService
+      .getMyProgress(props.trailId)
+      .then((res) => {
+        setProgress(res.data.progress);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => fetchData(), [fetchData]);
+
   return (
     <Card>
       <Title>Trilha em andamento</Title>
@@ -56,14 +81,22 @@ export default function CardProgress(props) {
       >
         {/* <Box sx={{ width: "320px", color: "#96D86E" }}> */}
         <BoxProgress>
-          <LinearProgress color="inherit" variant="determinate" value={50} />
+          <Text><strong>{parseInt(progress)}%</strong></Text>
+          <LinearProgress
+            color="inherit"
+            variant="determinate"
+            value={progress}
+          />
         </BoxProgress>
         {/* </Box> */}
-        <strong>{props.trailTitle}</strong>
-        <p>Conteúdo: {props.trailClass}</p>
+        <Text fontWeight="500">{props.trailTitle}</Text>
+        <Text fontWeight="400">Conteúdo: {props.trailClass}</Text>
       </Box>
       <StyledLink to={`/trilha?id=${props.trailId}`}>
-        <Button sx={{ marginTop: "15px" }} variant="contained">
+        <Button
+          sx={{ marginTop: "15px", backgroundColor: "#00C09B" }}
+          variant="contained"
+        >
           Continuar
         </Button>
       </StyledLink>

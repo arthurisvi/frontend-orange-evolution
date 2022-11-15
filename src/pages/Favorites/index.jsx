@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "../../shared/components/Header";
-import { Container, ContainerCards } from "./style";
+import { Container, ContainerCards, Content, Subtitle, Text, Title } from "./style";
 import { Box } from "@mui/system";
 import CardContent from "../../shared/components/CardContent";
 import { Typography } from "@material-ui/core";
@@ -19,7 +19,7 @@ const Favorites = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [favorites]);
+  }, []);
 
   useEffect(() => fetchData(), [fetchData]);
 
@@ -27,24 +27,26 @@ const Favorites = () => {
     <body>
       <Header />
       <Container>
-        <Box sx={{ marginBottom: "30px" }}>
-          <Typography variant="h4">Conteúdos salvos</Typography>
+        <Box sx={{ marginBottom: "30px", color: "#808080" }}>
+          <Title variant="h4">Conteúdos salvos</Title>
         </Box>
-        <ContainerCards>
-          {favorites?.map((content) => {
-              return (
-                <CardContent
-                  id={content.id}
-                  title={content.title}
-                  duration={content.duration}
-                  type={content.type}
-                  author={content.author}
-                  link={content.link}
-                  registered={true}
-                />
-              );
-          })}
-        </ContainerCards>
+        {favorites.length > 0 ? (
+          <ContainerCards>
+            {favorites?.map((content) => {
+              return <CardContent content={content} registered={true} />;
+            })}
+          </ContainerCards>
+        ) : (
+          <Content>
+            <Subtitle>Nenhum conteúdo salvo!</Subtitle>
+            <Box sx={{ marginTop: "20px" }}>
+              <Text>
+                Ainda não há nenhum conteúdo salvo para você ver. Se você deseja
+                salvar um conteúdo acesse as trilhas e clique em “favoritar”.
+              </Text>
+            </Box>
+          </Content>
+        )}
       </Container>
       <Footer />
     </body>

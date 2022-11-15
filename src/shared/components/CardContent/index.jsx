@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import AlertDialog from "../ModalConfirm";
 import { IconButton } from "@mui/material";
@@ -14,7 +13,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { userService } from "../../services/user.service";
 import AuthContext from "../../contexts/auth";
-import CustomizedDialogs from "../Modal"
+import CustomizedDialogs from "../Modal";
+import Loading from "../Loading";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -32,7 +32,7 @@ const Card = styled.div`
   width: 100%;
   padding: 0.938rem;
   height: 135px;
-  background-color: rgba(217, 217, 217, 0.7);
+  background-color: #f7f8f9;
   display: flex;
   gap: 10px;
   margin-top: 25px;
@@ -53,13 +53,18 @@ const CardIcon = styled.div`
 
 const Text = styled.p`
   font-size: ${(props) => props.size};
+  @media screen and (max-width: 958px) {
+    font-size: 1rem;
+  }
 `;
 
 export default function CardContent(props) {
   const location = useLocation();
   const [isFavorited, setFavorited] = useState(false);
-  const [isFinished, setFinished] = useState(false);
+  const [isFinished, setFinished] = useState(props.content.status === "finished" ? true : false);
+  const [loading, setLoading] = useState(false);
   const userContext = useContext(AuthContext);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     if (location.pathname.includes("/meus-favoritos")) {
@@ -69,7 +74,7 @@ export default function CardContent(props) {
 
   const handleSetFavorite = (id) => {
     userService
-      .setFavorite(id, !isFavorited)
+      .setFavorite(id, props.content.trail_id, !isFavorited)
       .then((res) => {
         setFavorited(!isFavorited);
       })
@@ -82,15 +87,19 @@ export default function CardContent(props) {
 
   const handleSetStatusContent = (id) => {
     let status = !isFinished ? "finished" : "notStarted";
+    console.log(isFinished)
 
     userService
-      .setStatusContent(id, status)
+      .setStatusContent(id, props.content.trail_id, status)
       .then((res) => {
-        res.data.status === "finished" ? setFinished(true) : setFinished(false);
+        // setFinished(!isFinished);
+        res.data.status === "notStarted" ? setFinished(false) : setFinished(true);
+        // console.log(isFinished)
       })
       .catch((e) => {
         console.log(e);
       });
+    // .finally(window.location.reload());
   };
 
   return (
@@ -111,9 +120,17 @@ export default function CardContent(props) {
             alignItems: "center",
           }}
         >
-          <Text size="18px">
-            <strong>{props.title}</strong>
-          </Text>
+          <Box
+            sx={{ cursor: "pointer" }}
+            onClick={() => {
+              window.open(props.content.link, "_blank");
+            }}
+          >
+            <Text size="18px">
+              <strong>{props.content.title}</strong>
+            </Text>
+          </Box>
+
           <Box
             sx={{
               padding: "0.375rem",
@@ -125,26 +142,35 @@ export default function CardContent(props) {
               color: "#ffff",
             }}
           >
-            <p>{props.type}</p>
+            <p>{props.content.type}</p>
           </Box>
         </Box>
-        <Text size="14px">Conteudo por: {props.author}</Text>
+        <Box
+          sx={{ cursor: "pointer" }}
+          onClick={() => {
+            window.open(props.content.link, "_blank");
+          }}
+        >
+          <Text size="14px">Conteúdo por: {props.content.author}</Text>
+        </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <AccessTimeIcon />
-            <Text size="14px">Duração: {props.duration}</Text>
+            <Text size="14px">Duração: {props.content.duration}</Text>
           </Box>
           {props.registered && (
             <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <IconButton onClick={(e) => handleSetStatusContent(props.id)}>
-                {isFinished ? (
+              <IconButton
+                onClick={(e) => handleSetStatusContent(props.content.id)}
+              >
+                {isFinished || props.content.status === "finished" ? (
                   <CheckCircleIcon color="primary" />
                 ) : (
                   <CheckCircleOutlineIcon />
                 )}
               </IconButton>
-              <IconButton onClick={(e) => handleSetFavorite(props.id)}>
-                {isFavorited ? (
+              <IconButton onClick={(e) => handleSetFavorite(props.content.id)}>
+                {isFavorited || props.content.favorite ? (
                   <BookmarkIcon color="primary" />
                 ) : (
                   <BookmarkBorderIcon />
@@ -157,12 +183,9 @@ export default function CardContent(props) {
               <AlertDialog
                 text="Tem certeza que deseja excluir esse conteúdo?"
                 title="Excluir conteúdo"
-                id={props.id}
+                id={props.content.id}
               />
-              <CustomizedDialogs
-                idContent={props.id} 
-                function="edit"
-              />
+              <CustomizedDialogs idContent={props.content.id} function="edit" />
             </Box>
           )}
         </Box>
