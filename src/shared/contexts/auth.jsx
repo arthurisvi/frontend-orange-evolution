@@ -6,9 +6,11 @@ const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    userService.getUser().then((res) => setUser(res.data));
-  }, []);
+  if (localStorage.getItem("token")) {
+    useEffect(() => {
+      userService.getUser(localStorage.getItem("token")).then((res) => setUser(res.data));
+    }, []);
+  }
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
