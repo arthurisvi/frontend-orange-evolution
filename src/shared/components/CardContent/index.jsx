@@ -7,6 +7,11 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import Box from "@mui/material/Box";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import CollectionsBookmarkOutlinedIcon from "@mui/icons-material/CollectionsBookmarkOutlined";
+import CardMembershipOutlinedIcon from "@mui/icons-material/CardMembershipOutlined";
 import AlertDialog from "../ModalConfirm";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -14,19 +19,7 @@ import styled from "styled-components";
 import { userService } from "../../services/user.service";
 import AuthContext from "../../contexts/auth";
 import CustomizedDialogs from "../Modal";
-import Loading from "../Loading";
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
-`;
 
 const Card = styled.div`
   width: 100%;
@@ -44,8 +37,11 @@ const Card = styled.div`
 
 const CardIcon = styled.div`
   width: 10%;
-  background-color: white;
+  background-color: ${(props) => props.backgroundColor};
   border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media screen and (max-width: 958px) {
     display: none;
   }
@@ -61,7 +57,9 @@ const Text = styled.p`
 export default function CardContent(props) {
   const location = useLocation();
   const [isFavorited, setFavorited] = useState(false);
-  const [isFinished, setFinished] = useState(props.content.status === "finished" ? true : false);
+  const [isFinished, setFinished] = useState(
+    props.content.status === "finished" ? true : false
+  );
   const [loading, setLoading] = useState(false);
   const userContext = useContext(AuthContext);
   const [searchParams] = useSearchParams();
@@ -87,13 +85,15 @@ export default function CardContent(props) {
 
   const handleSetStatusContent = (id) => {
     let status = !isFinished ? "finished" : "notStarted";
-    console.log(isFinished)
+    console.log(isFinished);
 
     userService
       .setStatusContent(id, props.content.trail_id, status)
       .then((res) => {
         // setFinished(!isFinished);
-        res.data.status === "notStarted" ? setFinished(false) : setFinished(true);
+        res.data.status === "notStarted"
+          ? setFinished(false)
+          : setFinished(true);
         // console.log(isFinished)
       })
       .catch((e) => {
@@ -102,9 +102,52 @@ export default function CardContent(props) {
     // .finally(window.location.reload());
   };
 
+  const changeColor = (type) => {
+    switch (type) {
+      case "Vídeo":
+        return "#D44949";
+      case "Artigo":
+        return "#4D46D1";
+      case "Live":
+        return "#861CD2";
+      case "Curso":
+        return "#00C09B";
+      case "Livro":
+        return "#F328BD";
+      default:
+        return "#000000";
+    }
+  }
+
   return (
     <Card>
-      <CardIcon />
+      {props.content.type === "Artigo" && (
+        <CardIcon backgroundColor="rgba(77, 70, 209, 0.3)">
+          <DescriptionOutlinedIcon sx={{ fontSize: 60, color: "#5E5757" }} />
+        </CardIcon>
+      )}
+      {props.content.type === "Vídeo" && (
+        <CardIcon backgroundColor="rgba(212, 73, 73, 0.3)">
+          <SmartDisplayOutlinedIcon sx={{ fontSize: 60, color: "#5E5757" }} />
+        </CardIcon>
+      )}
+      {props.content.type === "Live" && (
+        <CardIcon backgroundColor="rgba(134, 28, 210, 0.3)">
+          <LiveTvIcon sx={{ fontSize: 60, color: "#5E5757" }} />
+        </CardIcon>
+      )}
+      {props.content.type === "Livro" && (
+        <CardIcon backgroundColor="rgba(243, 40, 189, 0.3)">
+          <CollectionsBookmarkOutlinedIcon
+            sx={{ fontSize: 60, color: "#5E5757" }}
+          />
+        </CardIcon>
+      )}
+      {props.content.type === "Curso" && (
+        <CardIcon backgroundColor=" rgba(0, 192, 155, 0.3)">
+          <CardMembershipOutlinedIcon sx={{ fontSize: 60, color: "#5E5757" }} />
+        </CardIcon>
+      )}
       <Box
         sx={{
           width: "100%",
@@ -134,7 +177,7 @@ export default function CardContent(props) {
           <Box
             sx={{
               padding: "0.375rem",
-              backgroundColor: "#3D6D9D",
+              backgroundColor: changeColor(props.content.type),
               borderRadius: "16px",
               display: "flex",
               alignItems: "center",
