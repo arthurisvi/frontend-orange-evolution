@@ -1,6 +1,11 @@
 import api from "./api/index"
+const token = localStorage.getItem("token");
 
-const getAll = async() => await api.get(`/trail/getAll`)
+const getAll = async() => {
+    api.defaults.headers.common["Authorization"] = "Bearer " + token;
+    return await api.get(`/trail/getAll`)
+}
+
 
 const getById = async(id) => await api.get(`/trail/getContents/${id}`)
 

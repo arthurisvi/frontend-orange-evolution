@@ -1,11 +1,18 @@
 import api from "./api/index";
+const token = localStorage.getItem("token");
 
 const getUser = async() => await api.get("/user/myProfile")
 
-const getTrailsByUser = async() => await api.get("/user/getMyTrails");
+const getTrailsByUser = async() => {
+    api.defaults.headers.common["Authorization"] = "Bearer " + token;
+    return await api.get("/user/getMyTrails")
+};
 
-const getTrailsNotSubscribe = async() =>
-    await api.get("/user/notSubscribeTrails");
+const getTrailsNotSubscribe = async() => {
+    api.defaults.headers.common["Authorization"] = "Bearer " + token;
+    return await api.get("/user/notSubscribeTrails");
+}
+
 
 const getMyFavorites = async() => await api.get("user/favoritedContents");
 
