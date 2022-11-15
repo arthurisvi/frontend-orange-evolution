@@ -22,6 +22,9 @@ const Title = styled.h2`
   font-size: 1.75rem;
   font-weight: 400;
   color: #686c72;
+  @media screen and (max-width: 958px) {
+    font-size: 1.25rem;
+  }
 `;
 
 const Card = styled.div`

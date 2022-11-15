@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "../../shared/components/Header";
-import { Container, ContainerCards, Content, Subtitle, Text } from "./style";
+import { Container, ContainerCards, Content, Subtitle, Text, Title } from "./style";
 import { Box } from "@mui/system";
 import CardContent from "../../shared/components/CardContent";
 import { Typography } from "@material-ui/core";
@@ -27,7 +27,7 @@ const Favorites = () => {
       <Header />
       <Container>
         <Box sx={{ marginBottom: "30px", color: "#808080" }}>
-          <Typography variant="h4">Conteúdos salvos</Typography>
+          <Title variant="h4">Conteúdos salvos</Title>
         </Box>
         {favorites.length > 0 ? (
           <ContainerCards>

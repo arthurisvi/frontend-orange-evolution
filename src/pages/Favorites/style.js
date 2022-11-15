@@ -28,8 +28,16 @@ export const Content = styled.div `
 
 export const Subtitle = styled.div `
   font-size: 2rem;
-`
+`;
 
 export const Text = styled.div `
   font-size: 1.125rem;
-`
+`;
+
+export const Title = styled.h1 `
+  font-size: 2.25rem;
+  font-weight: 500;
+  @media screen and (max-width: 958px) {
+    font-size: 1.5rem;
+  }
+`;

@@ -63,6 +63,9 @@ const ContainerContent = styled.div`
 const Text = styled.p`
   color: #808080;
   font-size: ${(props) => props.size};
+  @media screen and (max-width: 1165px) {
+    font-size: 1rem;
+  }
 `;
 
 export default function TrailProgress(props) {

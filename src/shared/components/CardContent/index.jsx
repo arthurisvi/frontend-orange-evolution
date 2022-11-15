@@ -53,6 +53,9 @@ const CardIcon = styled.div`
 
 const Text = styled.p`
   font-size: ${(props) => props.size};
+  @media screen and (max-width: 958px) {
+    font-size: 1rem;
+  }
 `;
 
 export default function CardContent(props) {
@@ -148,7 +151,7 @@ export default function CardContent(props) {
             window.open(props.content.link, "_blank");
           }}
         >
-          <Text size="14px">Conteudo por: {props.content.author}</Text>
+          <Text size="14px">Conteúdo por: {props.content.author}</Text>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>

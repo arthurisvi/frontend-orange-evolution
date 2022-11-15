@@ -16,27 +16,31 @@ const Box = styled.div`
   }
 `;
 
+const Title = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #808080;
+  @media screen and (max-width: 958px) {
+    font-size: 1.25rem;
+  }
+`;
+
 export default function SimpleAccordion(props) {
 
   return (
     <Box>
-      <Accordion sx={{ width: "100%" }} >
+      <Accordion sx={{ width: "100%" }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography sx={{ fontSize: "24px", color: "#808080" }}>
-            {props.title}
-          </Typography>
+          <Title>{props.title}</Title>
         </AccordionSummary>
         <AccordionDetails>
           {props.contents?.map((content) => {
             return (
-              <CardContent
-                content={content}
-                registered={props.registered}
-              />
+              <CardContent content={content} registered={props.registered} />
             );
           })}
         </AccordionDetails>
