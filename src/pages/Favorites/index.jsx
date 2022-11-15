@@ -48,7 +48,7 @@ const Favorites = () => {
           </Content>
         )}
       </Container>
-      <Footer />
+      <Footer position="fixed"/>
     </body>
   );
 };
