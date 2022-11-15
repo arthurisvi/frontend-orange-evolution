@@ -1,11 +1,11 @@
 import React from "react";
 import { Box } from "@mui/system";
-import logo from "../../../assets/icons/Fcamara.svg";
-import Instagram from "../../../assets/icons/Instagram.svg";
-import Linkedin from "../../../assets/icons/Linkedin.svg";
-import Glassdoor from "../../../assets/icons/Glassdoor.svg";
-import Youtube from "../../../assets/icons/Youtube.svg";
-import Facebook from "../../../assets/icons/Facebook.svg";
+import logo from "../../../assets/icons/fcamara.svg";
+import Instagram from "../../../assets/icons/instagram.svg";
+import Linkedin from "../../../assets/icons/linkedin.svg";
+import Glassdoor from "../../../assets/icons/glassdoor.svg";
+import Youtube from "../../../assets/icons/youtube.svg";
+import Facebook from "../../../assets/icons/facebook.svg";
 import styled from "styled-components";
 
 const Text = styled.p`
