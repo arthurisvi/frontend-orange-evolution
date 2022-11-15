@@ -27,6 +27,7 @@ export const Container = styled.section `
   justify-content: center;
   align-items: center;
   gap: 60px;
+  margin-bottom: 200px;
   @media screen and (max-width: 958px) {
     padding: 15px;
     gap: 30px;
