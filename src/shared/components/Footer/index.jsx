@@ -25,7 +25,7 @@ const FooterAll = styled.div`
   margin-top: 30px;
   padding: 35px 60px 35px 80px;
   background-color: #eff1f2;
-  position: relative;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;

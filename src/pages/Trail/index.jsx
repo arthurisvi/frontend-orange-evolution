@@ -8,7 +8,7 @@ import TrailProgress from "../../shared/components/TrailProgress";
 import { trailService } from "../../shared/services/trail.service";
 import { userService } from "../../shared/services/user.service";
 import AuthContext from "../../shared/contexts/auth";
-import CustomizedDialogs from "../../shared/components/Modal"
+import CustomizedDialogs from "../../shared/components/Modal";
 import Footer from "../../shared/components/Footer";
 
 const Trail = () => {
@@ -69,16 +69,22 @@ const Trail = () => {
     trailService
       .getById(id)
       .then((res) => {
-        let data = []
-        data = userContext?.tag === "member" && res.data?.contentsUser ? getContentsWithFavoriteAndSaved(res.data.contents, res.data.contentsUser) : res.data.contents
-    
+        let data = [];
+        data =
+          (localStorage.getItem("tag") === "member" ||
+            userContext?.tag === "member") &&
+          res.data?.contentsUser
+            ? getContentsWithFavoriteAndSaved(
+                res.data.contents,
+                res.data.contentsUser
+              )
+            : res.data.contents;
+
         setInitialContents(
           data.filter((content) => content.category === "initial")
         );
         setBasicContents(
-          data.filter(
-            (content) => content.category === "basicConcepts"
-          )
+          data.filter((content) => content.category === "basicConcepts")
         );
         setOptionalContents(
           data.filter((content) => content.category === "optional")
@@ -104,15 +110,15 @@ const Trail = () => {
       return trail;
     });
 
-    return newContents
-  }
+    return newContents;
+  };
 
   useEffect(() => {
-    getFavorites()
-    getProgressTrail()
-    verifiyUserTrail()
+    getFavorites();
+    getProgressTrail();
+    verifiyUserTrail();
     fetchData();
-  }, [getFavorites, verifiyUserTrail, fetchData, getProgressTrail])
+  }, [getFavorites, verifiyUserTrail, fetchData, getProgressTrail]);
 
   return (
     <body>
@@ -120,7 +126,8 @@ const Trail = () => {
       <Container>
         <Box sx={{ marginTop: "60px" }}>
           <Title>Trilha de {trail.name}</Title>
-          {userContext?.tag === "member" ? (
+          {localStorage.getItem("tag") === "member" ||
+          userContext?.tag === "member" ? (
             <TrailProgress
               progress={progress}
               trailName={trail.name}

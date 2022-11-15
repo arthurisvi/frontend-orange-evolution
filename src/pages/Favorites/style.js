@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.section `
   padding: 5rem 8.75rem 5rem 8.75rem;
-
+  margin-bottom: 200px;
   @media screen and (max-width: 958px) {
     width: 100%;
     padding: 0.938rem;

@@ -188,7 +188,7 @@ export default function PrimarySearchAppBar() {
           <img src={Logo} />
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: "flex", gap: "30px", fontSize: "14px" }}>
-            <StyledLink to="/dashboard">INÍCIO</StyledLink>
+            <StyledLink to={localStorage.getItem('tag') === "member" ? "/dashboard/membro" : "/dashboard/admin"}>INÍCIO</StyledLink>
             {userContext?.tag === "member" && (
               <StyledLink to="/meus-favoritos">FAVORITOS</StyledLink>
             )}

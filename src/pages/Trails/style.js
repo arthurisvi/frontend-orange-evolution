@@ -26,6 +26,7 @@ export const Container = styled.section `
   display: flex;
   flex-direction: column;
   padding: 0.938rem 8.75rem 5rem 8.75rem;
+  margin-bottom: 200px;
   @media screen and (max-width: 958px) {
     margin: 0 0 1.875rem 0;
     display: flex;
