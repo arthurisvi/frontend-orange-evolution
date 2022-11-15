@@ -1,6 +1,6 @@
 import Axios from "axios"
 
-const baseURL = "http://127.0.0.1:3333/api";
+const baseURL = "https://api-orange-juice-evolution.herokuapp.com/api";
 
 const getToken = () => localStorage.getItem("token");
 
