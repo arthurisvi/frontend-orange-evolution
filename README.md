@@ -13,8 +13,8 @@ A Orange Juice é uma plataforma de estudos com materiais gratuitos e intuitivas
 três trilhas: Desenvolvimento Full-Stack, UX/UI Design e QA (Quality Assurance).
 
 Confira os vídeos sobre a plataforma: 
-*
-* 
+* https://www.youtube.com/watch?v=lmOqoy2CgIo
+* https://www.youtube.com/watch?v=241ZfwMk6zM
 
 
 ## Funcionalidades
