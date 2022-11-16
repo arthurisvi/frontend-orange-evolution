@@ -1,5 +1,17 @@
 # Orange Juice Evolution - Squad 20 
 
+## Produção
+https://app-frontend-orange-evolution.vercel.app/
+<br><br>Usuário admin:
+* fcamara20squad@gmail.com
+* dev1234
+
+Usuário membro:
+* spfcarthur1@gmail.com
+* dev1234
+
+*Devido a alguns bugs que aconteceram em produção, é necessário fazer o login, voltar e fazê-lo novamente (caso não funcione, repita o procedimento)
+
 ## Equipe:
 * [Desenvolvedor Full-Stack] Arthur Isvi
 * [Desenvolvedor Full-Stack] Cássio Gabriel
@@ -71,16 +83,3 @@ Usuário membro:
 ```
 $ yarn dev
 ```
-
-## Produção
-https://app-frontend-orange-evolution.vercel.app/
-Usuário admin:
-* fcamara20squad@gmail.com
-* dev1234
-
-Usuário membro:
-* spfcarthur1@gmail.com
-* dev1234
-
-*Devido a alguns bugs que aconteceram em produção, é necessário fazer o login, voltar e fazê-lo novamente
-
