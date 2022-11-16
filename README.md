@@ -44,3 +44,30 @@ Confira os vídeos sobre a plataforma:
 ## Telas de Usuário Admin
 ![image](https://user-images.githubusercontent.com/83462514/202064496-1c9c34ac-bab6-4023-bca5-993f308aefeb.png)
 ![image](https://user-images.githubusercontent.com/83462514/202064556-1ae7e4c1-b123-43db-9c2b-50df16e91ac9.png)
+
+
+## Como rodar o projeto [DEV]
+
+1. Clone o projeto
+2. Instale as dependências do projeto (é necessário usar yarn)
+```
+$ yarn
+```
+3. É necessário ter o backend da aplicação rodando ou apontar para a api que está online: 
+* https://api-orange-juice-evolution.herokuapp.com/api/
+* https://github.com/squad20-fcamara/backend-orange-evolution
+
+Caso escolha a primeira opção, altere a url da api em src/shared/services/api/index
+
+Usuário admin:
+* fcamara20squad@gmail.com
+* dev1234
+
+Usuário membro:
+* spfcarthur1@gmail.com
+* dev1234
+
+4. Rode o comando
+```
+$ yarn dev
+```
