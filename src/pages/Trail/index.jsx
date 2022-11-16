@@ -170,7 +170,7 @@ const Trail = () => {
           />
         </ContainerAccordions>
       </Container>
-      <Footer />
+      <Footer position="fixed"/>
     </body>
   );
 };

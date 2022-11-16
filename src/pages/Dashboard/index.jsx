@@ -35,7 +35,7 @@ const Dashboard = () => {
           })}
         </ContainerCards>
       </Container>
-      <Footer />
+      <Footer position="fixed"/>
     </body>
   );
 };
