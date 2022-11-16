@@ -123,7 +123,7 @@ const Trails = () => {
           ))}
         </ContainerCards>
       </Container>
-      <Footer />
+      <Footer position="relative"/>
     </body>
   );
 };

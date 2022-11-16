@@ -25,15 +25,15 @@ const FooterAll = styled.div`
   margin-top: 30px;
   padding: 35px 60px 35px 80px;
   background-color: #eff1f2;
-  position: fixed;
+  position: ${(props) => props.position};
   left: 0;
   bottom: 0;
   width: 100%;
 `;
 
-const Footer = () => {
+const Footer = (props) => {
   return (
-    <FooterAll>
+    <FooterAll position={props.position}>
       <Box
         sx={{
           marginBottom: "30px",

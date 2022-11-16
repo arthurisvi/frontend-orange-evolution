@@ -16,7 +16,7 @@ import { userService } from "../../shared/services/user.service";
 import { Navigate } from "react-router-dom";
 import { FormHelperText } from "@mui/material";
 import Loading from "../../shared/components/Loading";
-import api from "../../shared/services/api"
+import api from "../../shared/services/api";
 
 const theme = createTheme();
 
@@ -72,6 +72,7 @@ export default function SignInSide() {
             // backgroundColor: (t) =>
             //   t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundPosition: "center",
+            // backgroundRepeat: "no-repeat",
             height: "107%",
           }}
         />
@@ -99,7 +100,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="Email"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -110,7 +111,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Senha"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -124,7 +125,7 @@ export default function SignInSide() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, backgroundColor: "#00C09B" }}
               >
                 ENTRAR
               </Button>
